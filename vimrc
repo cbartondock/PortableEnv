@@ -15,8 +15,8 @@ set novisualbell
 set encoding=utf8
 
 " indentation
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 set ai "auto indent
 set si "smart indent
 
@@ -28,7 +28,7 @@ set noshowmode
 " line formatting
 set wrap linebreak nolist "line wrap
 set number "line numbers
-set foldcolumn=2
+set foldcolumn=0
 
 " leaders
 nnoremap <Space> <Nop>
@@ -56,4 +56,4 @@ nnoremap <Leader>sv :vnew<CR> " vertical divider
 
 " colorscheme
 execute pathogen#infect()
-colorscheme molokai
+colorscheme desertedocean 
