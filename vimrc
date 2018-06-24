@@ -1,3 +1,8 @@
+execute pathogen#infect()
+
+" colorscheme
+colorscheme desertedocean
+
 " syntax and filetype highlighting
 filetype plugin on
 filetype indent on
@@ -32,7 +37,7 @@ set foldcolumn=0
 
 " leaders
 nnoremap <Space> <Nop>
-:let Leader="\\" "localleader is space
+let Leader="\\" "localleader is space
 nmap <space> <Leader>
 
 " nerdtree stuff
@@ -53,7 +58,9 @@ nnoremap <Leader>o :enew<CR>
 nnoremap <Leader>sh :new<CR> " horizontal divider
 nnoremap <Leader>sv :vnew<CR> " vertical divider
 
+" search in file
+set hlsearch
+hi Search ctermbg=LightYellow
+hi Search ctermfg=Red
 
-" colorscheme
-execute pathogen#infect()
-colorscheme desertedocean 
+ 
