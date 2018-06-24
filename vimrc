@@ -1,12 +1,17 @@
+" bells and whistles
 execute pathogen#infect()
 
 " colorscheme
 colorscheme desertedocean
 
 " syntax and filetype highlighting
-filetype plugin on
-filetype indent on
 syntax enable
+filetype plugin indent on
+
+" leaders
+nnoremap <Space> <Nop>
+let Leader="\\" "localleader is space
+nmap <space> <Leader>
 
 " cursor
 set ruler
@@ -19,11 +24,22 @@ set novisualbell
 " encoding
 set encoding=utf8
 
-" indentation
+" tab
+set expandtab " converts tabs to spaces
 set shiftwidth=2
 set tabstop=2
+
+" indentation
 set ai "auto indent
 set si "smart indent
+nnoremap <Leader>i gg=G<CR>
+
+" indentation lines
+let g:indentLine_char = '┆'
+nnoremap <Leader>si :IndentGuidesToggle<CR>
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=white   ctermbg=17
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=white ctermbg=18
 
 " status line
 set laststatus=2
@@ -35,13 +51,9 @@ set wrap linebreak nolist "line wrap
 set number "line numbers
 set foldcolumn=0
 
-" leaders
-nnoremap <Space> <Nop>
-let Leader="\\" "localleader is space
-nmap <space> <Leader>
 
 " nerdtree stuff
-nnoremap <Leader>f :NERDTreeToggle<CR> " toggle nerdtree
+nnoremap <Leader>f :NERDTreeToggle<CR>
 let NERDTreeAutoDeleteBuffer = 1
 
 " airline stuff
@@ -63,4 +75,9 @@ set hlsearch
 hi Search ctermbg=LightYellow
 hi Search ctermfg=Red
 
- 
+" code folding
+set foldmethod=indent
+set foldcolumn=2
+set foldnestmax=10
+set nofoldenable
+
