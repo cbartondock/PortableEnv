@@ -10,3 +10,6 @@
 [submodule "bundle/surround"]
 	path = bundle/surround
 	url = https://tpope.io/vim/surround.git
+[submodule "bundle/bundle/auto-pairs"]
+	path = bundle/bundle/auto-pairs
+	url = git://github.com/jiangmiao/auto-pairs.git
