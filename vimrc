@@ -2,7 +2,7 @@
 execute pathogen#infect()
 
 " colorscheme
-colorscheme desertedocean
+colorscheme solarized
 
 " syntax and filetype highlighting
 syntax enable
@@ -34,6 +34,8 @@ set ai "auto indent
 set si "smart indent
 nnoremap <Leader>i gg=G<CR>
 
+" commenting gcc comments line
+
 " indentation lines
 let g:indentLine_char = '┆'
 nnoremap <Leader>si :IndentGuidesToggle<CR>
@@ -63,6 +65,8 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_powerline_fonts = 1
 
 " buffer switching stuff
+set hidden
+set autowrite
 nnoremap <Leader>p :bp<CR>
 nnoremap <Leader>n :bn<CR>
 nnoremap <Leader>d :bd<CR>
@@ -81,3 +85,4 @@ set foldcolumn=2
 set foldnestmax=10
 set nofoldenable
 
+" writing :Goyo
