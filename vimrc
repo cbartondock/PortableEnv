@@ -2,7 +2,12 @@
 execute pathogen#infect()
 
 " colorscheme
-colorscheme solarized
+let ip = $ITERM_PROFILE
+if ip == "Coding"
+  colorscheme solarized
+elseif ip == "Writing"
+  colorscheme minimalist
+endif
 
 " syntax and filetype highlighting
 syntax enable
@@ -85,6 +90,7 @@ nnoremap <Leader>d :bd<CR>
 nnoremap <Leader>o :enew<CR>
 nnoremap <Leader>sh :new<CR> " horizontal divider
 nnoremap <Leader>sv :vnew<CR> " vertical divider
+nnoremap <Leader>ss <C-w>w " switch panes
 
 " search in file
 set hlsearch
