@@ -1,4 +1,4 @@
-" bells and whistles
+" bells and whistles 
 execute pathogen#infect()
 
 " colorscheme
@@ -11,7 +11,9 @@ filetype plugin indent on
 " leaders
 nnoremap <Space> <Nop>
 let Leader="\\" "localleader is space
-nmap <space> <Leader>
+map <Space> <Leader>
+sunmap <Space>
+
 
 " cursor
 set ruler
@@ -32,9 +34,19 @@ set tabstop=2
 " indentation
 set ai "auto indent
 set si "smart indent
-nnoremap <Leader>i gg=G<CR>
+noremap <Leader>i gg=G<CR>
 
-" commenting gcc comments line
+" commenting (c toggles line/selection ce adds an EOL comment)
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
+let g:NERDDefaultAlign = 'left'
+let g:NERDCommentEmptyLines = 1
+let g:NERDTrimTrailingWhitespace = 1
+let g:NERDCreateDefaultMappings = 0
+map <Leader>cc <plug>NERDCommenterToggle
+map <Leader>ce <plug>NERDCommenterAppend
+map <Leader>cs <plug>NERDCommenterSexy
+map <Leader>cd <plug>NERDCommenterUncomment
 
 " indentation lines
 let g:indentLine_char = '┆'
@@ -85,4 +97,5 @@ set foldcolumn=2
 set foldnestmax=10
 set nofoldenable
 
-" writing :Goyo
+" writing mode (no distractions)
+map <Leader>wr :Goyo<CR>
