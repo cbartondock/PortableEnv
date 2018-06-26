@@ -16,7 +16,11 @@ This includes the following plugins:
 
 [vim-airline](https://github.com/vim-airline/vim-airline)
 
+[vim-airline-themes](https://github.com/vim-airline/vim-airline-themes)
+
 [vim-indent-guides](https://github.com/nathanaelkane/vim-indent-guides)
+
+[vim-better-whitespace](https://github.com/ntpeters/vim-better-whitespace)
 
 with shortcuts set up in what I hope is an intuitive way.
 
