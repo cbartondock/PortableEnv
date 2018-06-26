@@ -19,7 +19,6 @@ let Leader="\\" "localleader is space
 map <Space> <Leader>
 sunmap <Space>
 
-
 " cursor
 set ruler
 set mouse=a
@@ -70,7 +69,6 @@ set wrap linebreak nolist "line wrap
 set number "line numbers
 set foldcolumn=0
 
-
 " nerdtree stuff
 nnoremap <Leader>f :NERDTreeToggle<CR>
 let NERDTreeAutoDeleteBuffer = 1
@@ -94,8 +92,13 @@ nnoremap <Leader>ss <C-w>w " switch panes
 
 " search in file
 set hlsearch
-hi Search ctermbg=LightYellow
-hi Search ctermfg=Red
+if ip == "Coding"
+  hi Search ctermbg=LightYellow
+  hi Search ctermfg=Red
+elseif ip == "Writing"
+  hi Search ctermbg=LightYellow
+  hi Search ctermfg=Black
+endif
 
 " code folding
 set foldmethod=indent
