@@ -1,6 +1,6 @@
 " bells and whistles 
 execute pathogen#infect()
-let ip = $ITERM_PROFILE
+let ip = $ITERM_PROFILE|"Coding"
 
 " colorscheme
 if ip == "Coding"
