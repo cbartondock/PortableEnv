@@ -25,8 +25,9 @@ This includes the following plugins:
 with shortcuts set up in what I hope is an intuitive way.
 
 ## Installation
-Clone this project and make it the .vim directory, then run:
+Clone this project and make it the ~/.vim directory, then run:
 ```
+cd ~/.vim
 source bundle/submodules.sh
 ```
 
