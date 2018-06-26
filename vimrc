@@ -1,6 +1,23 @@
+" code folding
+set foldmethod=syntax
+hi FoldColumn guifg=black guibg=black
+set foldenable
+au BufRead * normal zR
+augroup AutoSaveFolds
+        autocmd!
+        autocmd BufWinLeave ?* mkview
+        autocmd BufWinEnter ?* silent loadview
+augroup END
+
 " bells and whistles 
 execute pathogen#infect()
 let ip = $ITERM_PROFILE|"Coding"
+
+" leaders
+nnoremap <Space> <Nop>
+let Leader="\\" "localleader is space
+map <Space> <Leader>
+sunmap <Space>
 
 " colorscheme
 if ip == "Coding"
@@ -9,15 +26,13 @@ elseif ip == "Writing"
   colorscheme minimalist
 endif
 
+" fold maps
+nnoremap <Leader><space> za
+nnoremap <Leader>uf zR
+
 " syntax and filetype highlighting
 syntax enable
 filetype plugin indent on
-
-" leaders
-nnoremap <Space> <Nop>
-let Leader="\\" "localleader is space
-map <Space> <Leader>
-sunmap <Space>
 
 " cursor
 set ruler
@@ -67,17 +82,24 @@ set noshowmode
 " line formatting
 set wrap linebreak nolist "line wrap
 set number "line numbers
-set foldcolumn=0
 
 " nerdtree stuff
 nnoremap <Leader>f :NERDTreeToggle<CR>
+nnoremap <Leader>hf :NERDTreeFind<CR>
 let NERDTreeAutoDeleteBuffer = 1
+"disable certain shortcuts while focused on NerdTree
+autocmd FileType nerdtree noremap <buffer> <Leader>i <nop>
+autocmd FileType nerdtree noremap <buffer> <Leader>r <nop>
+autocmd FileType nerdtree noremap <buffer> <Leader>n <nop>
+autocmd FileType nerdtree noremap <buffer> <Leader>p <nop>
+autocmd FileType nerdtree noremap <buffer> <Leader>d <nop>
 
 " airline stuff
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_powerline_fonts = 1
+let g:airline_theme='papercolor'
 
 " buffer switching stuff
 set hidden
@@ -104,12 +126,6 @@ elseif ip == "Writing"
   hi Search ctermfg=Black
 endif
 
-" code folding
-set foldmethod=indent
-set foldcolumn=2
-set foldnestmax=10
-set nofoldenable
-
 " writing mode (no distractions)
 map <Leader>wr :Goyo<CR>
 function! s:goyo_enter()
@@ -135,3 +151,6 @@ if ip == "Writing"
   autocmd! User GoyoEnter call <SID>goyo_enter()
   autocmd! User GoyoLeave call <SID>goyo_leave()
 endif
+
+"Select function javascript 
+autocmd FileType javascript nnoremap <Leader>sf va}o-0<CR>
