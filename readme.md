@@ -1,4 +1,4 @@
-# Chris's Stand Alone Vim 
+# Chris's Standalone Vim 
 
 This includes the following plugins: 
 
@@ -39,5 +39,5 @@ ln -s ~/.vim/vimrc ~/.vimrc
 
 You should be mostly good to go, but you also need to install [powerline fonts](https://github.com/powerline/fonts) and set one of them as your terminal font.
 
-## Nice additons
+## Nice Additions
 I suggest you use iTerm2 as your terminal and install [powerline-shell](https://github.com/b-ryan/powerline-shell)
