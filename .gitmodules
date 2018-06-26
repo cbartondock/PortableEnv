@@ -6,13 +6,11 @@
 	url = https://github.com/bling/vim-airline
 [submodule "bundle/colorschemes"]
 	path = bundle/colorschemes
-	url = https://github.com/flazz/vim-colorschemes.git
+  url = https://github.com/flazz/vim-colorschemes.git
+  ignore = dirty
 [submodule "bundle/surround"]
 	path = bundle/surround
 	url = https://tpope.io/vim/surround.git
-[submodule "bundle/bundle/auto-pairs"]
-	path = bundle/bundle/auto-pairs
-	url = git://github.com/jiangmiao/auto-pairs.git
 [submodule "bundle/auto-pairs"]
 	path = bundle/auto-pairs
 	url = git://github.com/jiangmiao/auto-pairs.git
