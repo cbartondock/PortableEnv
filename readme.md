@@ -25,17 +25,12 @@ This includes the following plugins:
 with shortcuts set up in what I hope is an intuitive way.
 
 ## Installation
-Clone this project and make it the .vim directory, then change directory into each of the submodules (in .vim/bundle) and run
-
+Clone this project and make it the .vim directory, then run:
 ```
-git checkout master
-```
-
-```
-git submodule update --init
+source bundle/submodules.sh
 ```
 
-I know it's a pain that you have to do this for every submodule, but I haven't been able to get it to work using the recursive version of update. Next run:
+in order to download all the submodules. Next run:
 
 ```
 ln -s ~/.vim/vimrc ~/.vimrc
