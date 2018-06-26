@@ -72,8 +72,9 @@ set t_Co=256
 set noshowmode
 
 " line formatting
-set wrap linebreak nolist "line wrap
-set number "line numbers
+set wrap linebreak nolist " line wrap
+set number " line numbers
+set backspace=indent,eol,start " backspace fix
 
 " nerdtree stuff
 nnoremap <Leader>f :NERDTreeToggle<CR>
@@ -151,6 +152,7 @@ if ip == "Writing"
   autocmd! User GoyoLeave call <SID>goyo_leave()
 endif
 
+<<<<<<< HEAD
 " code folding
 set foldmethod=indent
 set foldenable
@@ -164,3 +166,5 @@ augroup AutoSaveFolds
 augroup END
 hi! Folded ctermbg=NONE ctermfg=83
 hi! FoldColumn ctermbg=NONE ctermfg=83
+=======
+>>>>>>> f39b0141c047820d1e180fecb6947c72174f269a
