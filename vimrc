@@ -9,7 +9,7 @@ augroup AutoSaveFolds
         autocmd BufWinEnter ?* silent loadview
 augroup END
 
-" bells and whistles 
+" bells and whistles
 execute pathogen#infect()
 let ip = $ITERM_PROFILE|"Coding"
 
@@ -99,7 +99,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_powerline_fonts = 1
-let g:airline_theme='papercolor'
+let g:airline_theme='luna'
 
 " buffer switching stuff
 set hidden
@@ -126,6 +126,13 @@ elseif ip == "Writing"
   hi Search ctermfg=Black
 endif
 
+" Select function javascript
+autocmd FileType javascript nnoremap <Leader>sf va}o-0<CR>
+
+" Better white space
+let g:better_whitespace_enabled=1
+let g:strip_whitespace_on_save=1
+
 " writing mode (no distractions)
 map <Leader>wr :Goyo<CR>
 function! s:goyo_enter()
@@ -151,6 +158,3 @@ if ip == "Writing"
   autocmd! User GoyoEnter call <SID>goyo_enter()
   autocmd! User GoyoLeave call <SID>goyo_leave()
 endif
-
-"Select function javascript 
-autocmd FileType javascript nnoremap <Leader>sf va}o-0<CR>
