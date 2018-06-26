@@ -14,8 +14,6 @@ if ip == "Coding"
 elseif ip == "Writing"
   colorscheme minimalist
 endif
-hi! FoldColumn ctermbg=NONE ctermfg=40
-hi! Folded ctermbg=NONE ctermfg=40
 
 
 " fold maps
@@ -152,7 +150,6 @@ if ip == "Writing"
   autocmd! User GoyoLeave call <SID>goyo_leave()
 endif
 
-<<<<<<< HEAD
 " code folding
 set foldmethod=indent
 set foldenable
@@ -166,5 +163,4 @@ augroup AutoSaveFolds
 augroup END
 hi! Folded ctermbg=NONE ctermfg=83
 hi! FoldColumn ctermbg=NONE ctermfg=83
-=======
->>>>>>> f39b0141c047820d1e180fecb6947c72174f269a
+
