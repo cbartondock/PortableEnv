@@ -1,14 +1,3 @@
-" code folding
-set foldmethod=syntax
-hi FoldColumn guifg=black guibg=black
-set foldenable
-au BufRead * normal zR
-augroup AutoSaveFolds
-        autocmd!
-        autocmd BufWinLeave ?* mkview
-        autocmd BufWinEnter ?* silent loadview
-augroup END
-
 " bells and whistles
 execute pathogen#infect()
 let ip = $ITERM_PROFILE|"Coding"
@@ -25,6 +14,9 @@ if ip == "Coding"
 elseif ip == "Writing"
   colorscheme minimalist
 endif
+hi! FoldColumn ctermbg=NONE ctermfg=40
+hi! Folded ctermbg=NONE ctermfg=40
+
 
 " fold maps
 nnoremap <Leader><space> za
@@ -96,8 +88,8 @@ autocmd FileType nerdtree noremap <buffer> <Leader>d <nop>
 
 " airline stuff
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#left_sep = "\ue0b0 "
+let g:airline#extensions#tabline#left_alt_sep = "\ue0b1"
 let g:airline_powerline_fonts = 1
 let g:airline_theme='luna'
 
@@ -158,3 +150,17 @@ if ip == "Writing"
   autocmd! User GoyoEnter call <SID>goyo_enter()
   autocmd! User GoyoLeave call <SID>goyo_leave()
 endif
+
+" code folding
+set foldmethod=indent
+set foldenable
+set foldcolumn=1
+set foldlevelstart=0
+au BufRead * normal zR
+augroup AutoSaveFolds
+        autocmd!
+        autocmd BufWinLeave ?* mkview
+        autocmd BufWinEnter ?* silent loadview
+augroup END
+hi! Folded ctermbg=NONE ctermfg=83
+hi! FoldColumn ctermbg=NONE ctermfg=83
