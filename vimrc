@@ -80,8 +80,9 @@ set t_Co=256
 set noshowmode
 
 " line formatting
-set wrap linebreak nolist "line wrap
-set number "line numbers
+set wrap linebreak nolist " line wrap
+set number " line numbers
+set backspace=indent,eol,start " backspace fix
 
 " nerdtree stuff
 nnoremap <Leader>f :NERDTreeToggle<CR>
@@ -158,3 +159,4 @@ if ip == "Writing"
   autocmd! User GoyoEnter call <SID>goyo_enter()
   autocmd! User GoyoLeave call <SID>goyo_leave()
 endif
+
