@@ -15,7 +15,6 @@ elseif ip == "Writing"
   colorscheme minimalist
 endif
 
-
 " fold maps
 nnoremap <Leader><space> za
 nnoremap <Leader>uf zR
@@ -56,6 +55,11 @@ map <Leader>cc <plug>NERDCommenterToggle
 map <Leader>ce <plug>NERDCommenterAppend
 map <Leader>cs <plug>NERDCommenterSexy
 map <Leader>cd <plug>NERDCommenterUncomment
+
+" merge tool
+map dgb :exe ":diffget BA"<CR>
+map dgl :exe ":diffget LO"<CR>
+map dgr :exe ":diffget RE"<CR>
 
 " indentation lines
 let g:indentLine_char = '┆'
