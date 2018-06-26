@@ -90,6 +90,10 @@ nnoremap <Leader>sh :new<CR> " horizontal divider
 nnoremap <Leader>sv :vnew<CR> " vertical divider
 nnoremap <Leader>ss <C-w>w " switch panes
 
+" surround
+" cs([ changes out ( for [ (switch orientation to drop extra spaces)
+" yss[ surrounds with [ (w/ space)
+
 " search in file
 set hlsearch
 if ip == "Coding"
