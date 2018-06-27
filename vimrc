@@ -95,6 +95,7 @@ let g:airline#extensions#tabline#left_sep = "\ue0b0 "
 let g:airline#extensions#tabline#left_alt_sep = "\ue0b1"
 let g:airline_powerline_fonts = 1
 let g:airline_theme='luna'
+let g:airline#extensions#whitespace#mixed_indent_algo = 1
 
 " buffer switching stuff
 set hidden
