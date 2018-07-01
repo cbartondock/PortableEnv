@@ -36,3 +36,4 @@ alias g++='g++-8'
 alias c++='g++-8'
 
 alias py='python3'
+alias python='python3'
