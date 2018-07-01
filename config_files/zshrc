@@ -1,0 +1,38 @@
+
+# Zsh configuration
+export ZSH="/Users/cbartondock/.oh-my-zsh"
+plugins=(
+  git #ga (git add) gb (git branch) etc
+  osx #spotify man-preview show/hidefiles ofd (open Finder d) and cdf (cd Finder)
+)
+source $ZSH/oh-my-zsh.sh
+
+#ls colors
+export CLICOLOR=1
+export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+
+# Powerline Shell
+function powerline_precmd() {
+    PS1="$(powerline-shell --shell zsh $?)"
+}
+
+function install_powerline_precmd() {
+  for s in "${precmd_functions[@]}"; do
+    if [ "$s" = "powerline_precmd" ]; then
+      return
+    fi
+  done
+  precmd_functions+=(powerline_precmd)
+}
+
+if [ "$TERM" != "linux" ]; then
+    install_powerline_precmd
+fi
+
+# Aliases
+alias gcc='gcc-8'
+alias cc='gcc-8'
+alias g++='g++-8'
+alias c++='g++-8'
+
+alias py='python3'

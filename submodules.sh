@@ -1,4 +1,5 @@
 #!/bin/bash
+cd bundle
 for d in */ ; do
   echo "downloading $d"
   cd $d
@@ -6,3 +7,4 @@ for d in */ ; do
   git submodule update --init
   cd ..
 done
+cd ..

@@ -1,0 +1,24 @@
+[user]
+	name = cbartondock
+  email = cbartondock@gmail.com
+[color]
+  ui = auto
+[alias]
+  oops = commit --ammend --no-edit
+  st = status
+[diff]
+  tool = vimdiff
+[difftool]
+  prompt = false
+[merge]
+  tool = vimdiff
+  conflictstyle = diff3
+[mergetool]
+  prompt = false
+  keepBackup = false
+  keepTemporaries = false
+[core]
+  editor = vim
+  whitespace = -trailing-space
+[status]
+  submoduleSummary = true

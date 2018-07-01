@@ -28,14 +28,16 @@ with shortcuts set up in what I hope is an intuitive way.
 Clone this project and make it the ~/.vim directory, then run:
 ```
 cd ~/.vim
-source bundle/submodules.sh
+source submodules.sh
 ```
 
 in order to download all the submodules. Next run:
 
 ```
-ln -s ~/.vim/vimrc ~/.vimrc
+source linkconfig.sh
 ```
+
+in order to create symlinks to the various config files in config\_files
 
 You should be mostly good to go, but you also need to install [powerline fonts](https://github.com/powerline/fonts) and set one of them as your terminal font.
 
