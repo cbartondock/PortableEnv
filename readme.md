@@ -27,6 +27,7 @@ with shortcuts set up in what I hope is an intuitive way.
 ## Installation
 Clone this project and make it the ~/.vim directory, then run:
 ```
+git clone https://github.com/cbartondock/PortableEnv.git ~/.vim
 cd ~/.vim
 source submodules.sh
 ```
@@ -42,4 +43,4 @@ in order to create symlinks to the various config files in config\_files
 You should be mostly good to go, but you also need to install [powerline fonts](https://github.com/powerline/fonts) and set one of them as your terminal font.
 
 ## Nice Additions
-I suggest you use iTerm2 as your terminal and install [powerline-shell](https://github.com/b-ryan/powerline-shell). I also prefer [Zsh](https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH) with some [OhMyZsh](https://ohmyz.sh/) [plugins](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins) (git and osx at the least) to bash. I've included a .zshrc among config_files.
+I suggest you use iTerm2 as your terminal and install [powerline-shell](https://github.com/b-ryan/powerline-shell). I also prefer [Zsh](https://github.com/robbyrussell/oh-my-zsh/wiki/Installing-ZSH) with some [OhMyZsh](https://ohmyz.sh/) [plugins](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins) (git and osx at the least) to bash. I've included a .zshrc among config_files. If you use zsh, make sure you install powerline-shell and fonts-powerline first.
