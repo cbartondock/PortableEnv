@@ -7,7 +7,6 @@
 [submodule "bundle/colorschemes"]
 	path = bundle/colorschemes
   url = https://github.com/flazz/vim-colorschemes.git
-  ignore = dirty
 [submodule "bundle/surround"]
 	path = bundle/surround
 	url = https://tpope.io/vim/surround.git
