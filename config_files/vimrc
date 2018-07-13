@@ -162,10 +162,9 @@ set foldcolumn=1
 set foldlevelstart=0
 au BufRead * normal zR
 augroup AutoSaveFolds
-        autocmd!
-        autocmd BufWinLeave ?* mkview
-        autocmd BufWinEnter ?* silent loadview
+  autocmd!
+  autocmd BufWinLeave ?* mkview
+  autocmd BufWinEnter ?* silent loadview
 augroup END
 hi! Folded ctermbg=NONE ctermfg=83
 hi! FoldColumn ctermbg=NONE ctermfg=83
-

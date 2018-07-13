@@ -37,3 +37,10 @@ alias c++='g++-8'
 
 alias py='python3'
 alias python='python3'
+
+# Windows Linux Subsystem Specific
+if [ `echo $PATH | grep -c "Windows" ` -gt 0 ]
+then
+  export DISPLAY=:0
+  export BROWSER=/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
+fi
