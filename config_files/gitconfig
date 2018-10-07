@@ -6,6 +6,10 @@
 [alias]
   oops = commit --ammend --no-edit
   st = status
+  br = branch
+  cob = checkout -b
+  save = !git add -A && git commit -m 'SAVEPOINT'
+  rblist = !git remote update origin --prune && git branch -r
 [diff]
   tool = vimdiff
 [difftool]
