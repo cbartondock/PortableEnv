@@ -37,7 +37,7 @@ alias c++='g++-8'
 
 alias py='python3'
 alias python='python3'
-alias emu5x= '~/Library/Android/sdk/tools/emulator @Nexus_5X_API_28_x86'
+alias emudroid= "$HOME/Library/Android/sdk/emulator/emulator @Nexus_5X_API_28_x86"
 
 # Windows Linux Subsystem Specific
 if [ `echo $PATH | grep -c "Windows" ` -gt 0 ]
@@ -52,7 +52,14 @@ export NVM_DIR="$HOME/.nvm"
 
 # android sdk
 export ANDROID_HOME="$HOME/Library/Android/sdk/"
+export PATH="$PATH:$ANDROID_HOME/emulator"
 export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 
 # fastlane
 export PATH="$PATH:$HOME/.fastlane/bin"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/senordock/Documents/ENEE633/Project2/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/senordock/Documents/ENEE633/Project2/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/senordock/Documents/ENEE633/Project2/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/senordock/Documents/ENEE633/Project2/google-cloud-sdk/completion.zsh.inc'; fi
