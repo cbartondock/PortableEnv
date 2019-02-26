@@ -5,6 +5,7 @@ plugins=(
   git #ga (git add) gb (git branch) etc
   osx #spotify man-preview show/hidefiles ofd (open Finder d) and cdf (cd Finder)
 )
+export ZSH_DISABLE_COMPFIX=true
 source $ZSH/oh-my-zsh.sh
 
 #ls colors
@@ -38,9 +39,13 @@ alias c++='g++-8'
 alias py='python3'
 alias python='python3'
 
+
 # Windows Linux Subsystem Specific
 if [ `echo $PATH | grep -c "Windows" ` -gt 0 ]
 then
+  export WINHOME=/mnt/c/Users/Chris\ Barton\ Dock
   export DISPLAY=:0
   export BROWSER=/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
 fi
+
+cd ~

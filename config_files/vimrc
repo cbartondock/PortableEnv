@@ -168,3 +168,6 @@ augroup AutoSaveFolds
 augroup END
 hi! Folded ctermbg=NONE ctermfg=83
 hi! FoldColumn ctermbg=NONE ctermfg=83
+
+" if you forgot to open a restricted file w/ sudo
+" cmap w!! w !sudo tee > /dev/null %
