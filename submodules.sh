@@ -5,6 +5,7 @@ for d in */ ; do
   cd $d
   git checkout master
   git submodule update --init
+  git pull
   cd ..
 done
 cd ..
