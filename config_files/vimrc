@@ -20,8 +20,9 @@ nnoremap <Leader><space> za
 nnoremap <Leader>uf zR
 
 " syntax and filetype highlighting
-syntax enable
 filetype plugin indent on
+syntax enable
+
 
 " cursor
 set ruler
@@ -183,3 +184,5 @@ set completeopt-=noselect  " select first match
 " Live Tex Previewing
 autocmd Filetype tex setl updatetime=1
 let g:livepreview_previewer= 'open -a Skim'
+autocmd FileType tex nnoremap <Leader>la :LLPStartPreview<CR> " start preview
+
