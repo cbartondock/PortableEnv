@@ -170,15 +170,15 @@ hi! Folded ctermbg=NONE ctermfg=83
 hi! FoldColumn ctermbg=NONE ctermfg=83
 
 " kite and completion (not working)
-nmap <silent> <buffer> <Leader>m <Plug>(kite-docs)
-let g:kite_auto_complete=0
-let g:kite_tab_complete=1
-set completeopt-=menu
-set completeopt+=menuone   " show the popup menu even when there is only 1 match
-set completeopt-=longest   " don't insert the longest common text
-set completeopt+=preview   " don't show preview window
-set completeopt+=noinsert  " don't insert any text until user chooses a match
-set completeopt-=noselect  " select first match
+" nmap <silent> <buffer> <Leader>m <Plug>(kite-docs)
+" let g:kite_auto_complete=0
+" let g:kite_tab_complete=1
+" set completeopt-=menu
+" set completeopt+=menuone   " show the popup menu even when there is only 1 match
+" set completeopt-=longest   " don't insert the longest common text
+" set completeopt+=preview   " don't show preview window
+" set completeopt+=noinsert  " don't insert any text until user chooses a match
+" set completeopt-=noselect  " select first match
 
 " Live Tex Previewing
 autocmd Filetype tex setl updatetime=1
