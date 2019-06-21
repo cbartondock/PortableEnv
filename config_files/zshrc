@@ -10,8 +10,7 @@ osx #spotify man-preview show/hidefiles ofd (open Finder d) and cdf (cd Finder)
 source $ZSH/oh-my-zsh.sh
 
 #ls colors
-export CLICOLOR=1
-export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+
 
 # Powerline Shell
 function powerline_precmd() {
@@ -59,6 +58,10 @@ if [ `echo $PATH | grep -c "Windows" ` -gt 0 ]
 then
 	export DISPLAY=:0
 	export BROWSER=/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
+  export LS_COLORS="di=36:ln=35:so=32:ex=31:ow=34"
+else
+  export CLICOLOR=1
+  export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 fi
 
 # nvm
