@@ -6,6 +6,9 @@ plugins=(
 git #ga (git add) gb (git branch) etc
 osx #spotify man-preview show/hidefiles ofd/cdf (open/cd Finder d)
 )
+excludeconfigs=(
+theme-and-appearance
+)
 source $ZSH/oh-my-zsh.sh
 
 # Powerline Shell
@@ -33,6 +36,8 @@ alias g++='g++-8'
 alias c++='g++-8'
 alias py='python'
 alias py3='python3'
+alias ls="$(which ls) -a -h --group-directories-first --color=tty"
+alias la='ls -la | grep "^d" && ls -la | grep "^-" && ls -la | grep "^l"'
 
 
 # Respect the Local Vim
@@ -47,7 +52,7 @@ if [ `echo $PATH | grep -c "Windows" ` -gt 0 ]
 then
 	export DISPLAY=:0
 	export BROWSER=/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
-  export LS_COLORS="di=36:ln=35:so=32:ex=31:ow=34"
+  export LS_COLORS="di=34:ln=35:so=32:ex=31:ow=34"
 else
   export CLICOLOR=1
   export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
