@@ -5,5 +5,4 @@ for cfile in config_files/*; do
   name="$(basename "$cfile")"
   echo "Linking $name to $HOME/.$name"
   ln -s "$(cd "$HOME/.vim/config_files";pwd)/$name" "$HOME/.$name"
-
 done;
