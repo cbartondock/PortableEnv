@@ -29,16 +29,13 @@ if [ "$TERM" != "linux" ]; then
 	install_powerline_precmd
 fi
 
-# Aliases
+# Compiler/Interpreter Aliases
 alias gcc='gcc-8'
 alias cc='gcc-8'
 alias g++='g++-8'
 alias c++='g++-8'
 alias py='python'
 alias py3='python3'
-alias ls="$(which ls) -a -h --group-directories-first --color=tty"
-alias la='ls -la | grep "^d" && ls -la | grep "^-" && ls -la | grep "^l"'
-
 
 # Respect the Local Vim
 if [ -d "/usr/local/bin/vim" ]
@@ -57,6 +54,15 @@ else
   export CLICOLOR=1
   export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 fi
+
+# Improved ls
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+if [ -z $LS_NATURAL ]
+then
+  export LS_NATURAL="$(which ls)"
+fi
+alias ls="$LS_NATURAL -a -h --group-directories-first --color=tty"
+alias la='ls -la | grep "^d" && ls -la | grep "^-" && ls -la | grep "^l"'
 
 # NVM
 if [ -d "/usr/local/opt/nvm" ]
