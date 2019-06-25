@@ -2,9 +2,6 @@
 execute pathogen#infect()
 let ip = $ITERM_PROFILE
 
-" system clipboard
-set clipboard=unnamed
-
 " leaders
 nnoremap <Space> <Nop>
 let Leader="\\" "localleader is space
@@ -19,6 +16,12 @@ elseif ip == "Writing"
 else
   colorscheme desertink
 endif
+
+" system clipboard
+set clipboard=unnamed
+nnoremap y "*y
+nnoremap p "*p
+
 
 " fold maps
 nnoremap <Leader><space> za
@@ -90,8 +93,8 @@ let NERDTreeAutoDeleteBuffer = 1
 "disable certain shortcuts while focused on NerdTree
 autocmd FileType nerdtree noremap <buffer> <Leader>i <nop>
 autocmd FileType nerdtree noremap <buffer> <Leader>r <nop>
-autocmd FileType nerdtree noremap <buffer> <Leader>n <nop>
 autocmd FileType nerdtree noremap <buffer> <Leader>p <nop>
+autocmd FileType nerdtree noremap <buffer> <Leader>n <nop>
 autocmd FileType nerdtree noremap <buffer> <Leader>d <nop>
 
 " airline stuff
