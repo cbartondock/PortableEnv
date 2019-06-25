@@ -1,6 +1,9 @@
 " bells and whistles
 execute pathogen#infect()
-let ip = $ITERM_PROFILE|"Coding"
+let ip = $ITERM_PROFILE
+
+" system clipboard
+set clipboard=unnamed
 
 " leaders
 nnoremap <Space> <Nop>
