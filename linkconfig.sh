@@ -1,5 +1,4 @@
 #!/bin/bash
-
 for cfile in config_files/*; do
   [ -e "$cfile" ] || continue #don't go to glob if no file found
   name="$(basename "$cfile")"
