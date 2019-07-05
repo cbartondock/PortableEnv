@@ -1,6 +1,6 @@
 " bells and whistles
 execute pathogen#infect()
-let ip = $ITERM_PROFILE|"Coding"
+let ip = $ITERM_PROFILE
 
 " leaders
 nnoremap <Space> <Nop>
@@ -13,7 +13,15 @@ if ip == "Coding"
   colorscheme solarized
 elseif ip == "Writing"
   colorscheme minimalist
+else
+  colorscheme desertink
 endif
+
+" system clipboard
+set clipboard=unnamed
+nnoremap y "*y
+nnoremap p "*p
+
 
 " fold maps
 nnoremap <Leader><space> za
@@ -86,8 +94,8 @@ let NERDTreeAutoDeleteBuffer = 1
 "disable certain shortcuts while focused on NerdTree
 autocmd FileType nerdtree noremap <buffer> <Leader>i <nop>
 autocmd FileType nerdtree noremap <buffer> <Leader>r <nop>
-autocmd FileType nerdtree noremap <buffer> <Leader>n <nop>
 autocmd FileType nerdtree noremap <buffer> <Leader>p <nop>
+autocmd FileType nerdtree noremap <buffer> <Leader>n <nop>
 autocmd FileType nerdtree noremap <buffer> <Leader>d <nop>
 
 " airline stuff
@@ -95,7 +103,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = "\ue0b0 "
 let g:airline#extensions#tabline#left_alt_sep = "\ue0b1"
 let g:airline_powerline_fonts = 1
-let g:airline_theme='luna'
+let g:airline_theme='desertink'
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
 
 " buffer switching stuff
@@ -169,17 +177,6 @@ augroup AutoSaveFolds
 augroup END
 hi! Folded ctermbg=NONE ctermfg=83
 hi! FoldColumn ctermbg=NONE ctermfg=83
-
-" kite and completion (not working)
-nmap <silent> <buffer> <Leader>m <Plug>(kite-docs)
-let g:kite_auto_complete=0
-let g:kite_tab_complete=1
-set completeopt-=menu
-set completeopt+=menuone   " show the popup menu even when there is only 1 match
-set completeopt-=longest   " don't insert the longest common text
-set completeopt+=preview   " don't show preview window
-set completeopt+=noinsert  " don't insert any text until user chooses a match
-set completeopt-=noselect  " select first match
 
 " Live Tex Previewing
 autocmd Filetype tex setl updatetime=1

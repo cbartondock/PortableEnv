@@ -1,15 +1,15 @@
+source ~/.profile
 
-# Zsh configuration
+# ZSH
 export ZSH="$HOME/.oh-my-zsh"
 plugins=(
 git #ga (git add) gb (git branch) etc
-osx #spotify man-preview show/hidefiles ofd (open Finder d) and cdf (cd Finder)
+osx #spotify man-preview show/hidefiles ofd/cdf (open/cd Finder d)
+)
+excludeconfigs=(
+theme-and-appearance
 )
 source $ZSH/oh-my-zsh.sh
-
-#ls colors
-export CLICOLOR=1
-export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 
 # Powerline Shell
 function powerline_precmd() {
@@ -29,40 +29,76 @@ if [ "$TERM" != "linux" ]; then
 	install_powerline_precmd
 fi
 
-# Aliases
+# Compiler/Interpreter Aliases
 alias gcc='gcc-8'
 alias cc='gcc-8'
 alias g++='g++-8'
 alias c++='g++-8'
+alias py='python'
+alias py3='python3'
 
-alias py='python3'
-alias python='python3'
-alias vim='/usr/local/bin/vim'
-alias emudroid= "$HOME/Library/Android/sdk/emulator/emulator @Nexus_5X_API_28_x86"
-alias julia="/Applications/Julia-1.1.app/Contents/Resources/julia/bin/julia"
+# Respect the Local Vim
+if [ -d "/usr/local/bin/vim" ]
+then
+  alias vim='/usr/local/bin/vim'
+fi
 
-
-# Windows Linux Subsystem Specific
+# Windows Linux Subsystem
 if [ `echo $PATH | grep -c "Windows" ` -gt 0 ]
 then
 	export DISPLAY=:0
 	export BROWSER=/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
+  export LS_COLORS="di=34:ln=35:so=32:ex=31:ow=34"
+else
+  export CLICOLOR=1
+  export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 fi
 
-# nvm
-export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
+# Improved ls
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+if [ -z $LS_NATURAL ]
+then
+  export LS_NATURAL="$(which ls)"
+fi
+alias ls="$LS_NATURAL -a -h --group-directories-first --color=tty"
+alias la='ls -la | grep "^d" && ls -la | grep "^-" && ls -la | grep "^l"'
 
-# android sdk
-export ANDROID_HOME="$HOME/Library/Android/sdk/"
-export PATH="$PATH:$ANDROID_HOME/emulator"
-export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
+# NVM
+if [ -d "/usr/local/opt/nvm" ]
+then
+  export NVM_DIR="$HOME/.nvm"
+  . "/usr/local/opt/nvm/nvm.sh"
+fi
 
-# fastlane
-export PATH="$PATH:$HOME/.fastlane/bin"
+# Fastlane
+if [ -d "/.fastlane/bin" ]
+then
+  export PATH="$PATH:$HOME/.fastlane/bin"
+fi
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/senordock/Documents/ENEE633/Project2/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/senordock/Documents/ENEE633/Project2/google-cloud-sdk/path.zsh.inc'; fi
+# Android
+if [ -d "$HOME/Library/Android" ]
+then
+  alias emudroid= "$HOME/Library/Android/sdk/emulator/emulator @Nexus_5X_API_28_x86"
+  export ANDROID_HOME="$HOME/Library/Android/sdk/"
+  export PATH="$PATH:$ANDROID_HOME/emulator"
+  export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
+fi
 
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/senordock/Documents/ENEE633/Project2/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/senordock/Documents/ENEE633/Project2/google-cloud-sdk/completion.zsh.inc'; fi
+# Google Cloud SDK.
+if [ -f '/Users/senordock/Documents/ENEE633/Project2/google-cloud-sdk/path.zsh.inc' ]
+then
+  . '/Users/senordock/Documents/ENEE633/Project2/google-cloud-sdk/path.zsh.inc'
+fi
+
+# Enable shell command completion for gcloud.
+if [ -f '/Users/senordock/Documents/ENEE633/Project2/google-cloud-sdk/completion.zsh.inc' ]
+then
+  . '/Users/senordock/Documents/ENEE633/Project2/google-cloud-sdk/completion.zsh.inc'
+fi
+
+# Source the local specific configuration
+if [ -f "$HOME/.zshlocal" ]
+then
+  source "$HOME/.zshlocal"
+fi

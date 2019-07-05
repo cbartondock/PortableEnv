@@ -1,0 +1,5 @@
+# Respect the Locals (keep this in .profile)
+if [ -d "$HOME/.local/bin" ]
+then
+  export PATH="$HOME/.local/bin:$PATH"
+fi
