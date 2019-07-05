@@ -1,6 +1,24 @@
 let s:status_poll_interval = 5 * 1000  " 5sec in milliseconds
-let s:plan_poll_interval = 30 * 1000  " 30sec in milliseconds
 let s:timer = -1
+let s:kite_symbol = nr2char(printf('%d', '0x27E0'))
+let s:inited = 0
+let s:kite_auto_launched = 0
+
+
+function kite#enable_auto_start()
+  call kite#utils#set_setting('start_kited_at_startup', 1)
+  call s:launch_kited()
+  call kite#utils#info('Kite: auto-start enabled')
+endfunction
+
+function kite#disable_auto_start()
+  call kite#utils#set_setting('start_kited_at_startup', 0)
+  call kite#utils#info('Kite: auto-start disabled')
+endfunction
+
+function kite#symbol()
+  return s:kite_symbol
+endfunction
 
 
 function kite#statusline()
@@ -13,28 +31,54 @@ endfunction
 
 
 function! kite#max_file_size()
-  return 1048576  " 1MB
+  return 76800  " 75KB
 endfunction
 
 
-function! kite#init()
+function! s:setup_options()
+  let s:pumheight = &pumheight
   if &pumheight == 0
     set pumheight=10
   endif
 
+  let s:updatetime = &updatetime
   if &updatetime == 4000
     set updatetime=100
   endif
 
+  let s:shortmess = &shortmess
   set shortmess+=c
 
-  call s:configure_completeopt()
-  call s:start_plan_timer()
+  let s:completeopt = &completeopt
+  set completeopt+=menuone,noinsert
+  set completeopt-=longest
+
+  if kite#utils#windows()
+    " Avoid taskbar flashing on Windows when executing system() calls.
+    let s:shelltemp = &shelltemp
+    set noshelltemp
+  endif
+endfunction
+
+
+function! s:restore_options()
+  if !exists('s:pumheight') | return | endif
+
+  let &pumheight   = s:pumheight
+  let &updatetime  = s:updatetime
+  let &shortmess   = s:shortmess
+  let &completeopt = s:completeopt
+  if kite#utils#windows()
+    let &shelltemp = s:shelltemp
+  endif
 endfunction
 
 
 function! kite#bufenter()
   if s:supported_language()
+    call s:launch_kited()
+
+    call s:setup_options()
     call s:setup_events()
     call s:setup_mappings()
 
@@ -45,6 +89,7 @@ function! kite#bufenter()
     call s:start_status_timer()
 
   else
+    call s:restore_options()
     call s:stop_status_timer()
   endif
 endfunction
@@ -134,41 +179,11 @@ function! s:stop_status_timer()
 endfunction
 
 
-function! s:start_plan_timer()
-  call timer_start(s:plan_poll_interval,
-        \   function('kite#plan#check'),
-        \   {'repeat': -1}
-        \ )
-endfunction
-
-
-" Configure &completeopt if and only if it has not been set already.
-"
-" Note there's no way to distinguish the option not having been set from
-" the option having been set by hand to the default value.  So if the user
-" sets the option by hand to the default value we will re-configure it.
-"
-" The alternative is simply to leave the option alone.
-function! s:configure_completeopt()
-  " Display the option's value.  If it has been set somewhere, there
-  " will be a second line showing the location.
-  redir => output
-    silent verbose set completeopt
-  redir END
-  let lines = len(split(output, '\n'))
-  " Don't (re-)configure option if:
-  " - (option has been set somewhere) OR
-  " - (option hasn't been set / option was set by hand AND is not the default value)
-  if lines > 1 || (lines == 1 && &completeopt !=# 'menu,preview') | return | endif
-
-  " completeopt is not global-local.
-
-  set completeopt-=menu
-  set completeopt+=menuone
-  set completeopt-=longest
-  set completeopt-=preview
-  set completeopt+=noinsert
-  set completeopt-=noselect
+function! s:launch_kited()
+  if !s:kite_auto_launched && kite#utils#get_setting('start_kited_at_startup', 1)
+    call kite#utils#launch_kited()
+    let s:kite_auto_launched = 1
+  endif
 endfunction
 
 

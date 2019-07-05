@@ -17,6 +17,8 @@ Download Kite from https://kite.com.  During Kite's installation process, select
 
 Kite will also keep the plugin up to date automatically.
 
+[Learn more about Kite for Vim.](https://www.kite.com/integrations/vim)
+
 
 ### Kite Copilot
 
@@ -75,6 +77,15 @@ set belloff+=ctrlg  " if vim beeps during completion
 ```
 
 
+### Signatures
+
+Kite can show how other people used the signature you are using.  By default this is off to save space.
+
+To turn it on: `:KiteShowPopularPatterns`.
+
+To turn it off: `:KiteHidePopularPatterns`.
+
+
 ### Documentation
 
 Press `K` when the cursor is on a keyword to view its documentation in Kite Copilot.
@@ -101,6 +112,8 @@ let g:kite_documentation_continual=1
 - `KiteGeneralSettings` - open Kite's settings in the Copilot.
 - `KitePermissions` - open Kite's permission settings in the Copilot.
 - `KiteHelp` - show overview documentation.
+- `KiteEnableAutoStart` - start Kite automatically when Vim starts.
+- `KiteDisableAutoStart` - do not start Kite automatically when Vim starts.
 
 
 
@@ -117,3 +130,16 @@ set laststatus=2  " always display the status line
 ### Debugging
 
 Use `let g:kite_log=1` to switch on logging.  Logs are written to `kite-vim.log` in Vim's current working directory.
+
+
+---
+
+#### About Kite
+
+Kite is built by a team in San Francisco devoted to making programming easier and more enjoyable for all. Follow Kite on
+[Twitter](https://twitter.com/kitehq) and get the latest news and programming tips on the
+[Kite Blog](https://kite.com/blog).
+Kite has been featured in [Wired](https://www.wired.com/2016/04/kites-coding-asssitant-spots-errors-finds-better-open-source/), 
+[VentureBeat](https://venturebeat.com/2019/01/28/kite-raises-17-million-for-its-ai-powered-developer-environment/), 
+[The Next Web](https://thenextweb.com/dd/2016/04/14/kite-plugin/), and 
+[TechCrunch](https://techcrunch.com/2019/01/28/kite-raises-17m-for-its-ai-driven-code-completion-tool/). 

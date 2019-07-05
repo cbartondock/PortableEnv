@@ -6,9 +6,9 @@ let s:hover_path         = '/api/buffer/vim'
 let s:docs_path          = 'kite://docs/'
 let s:status_path        = '/clientapi/status?filename='
 let s:user_path          = '/clientapi/user'
-let s:plan_path          = '/clientapi/plan'
 let s:copilot_path       = 'kite://home'
 let s:counter_path       = '/clientapi/metrics/counters'
+let s:settings_path      = 'kite://settings'
 let s:permissions_path   = 'kite://settings/permissions'
 
 
@@ -65,17 +65,6 @@ function! kite#client#status(filename, handler)
 endfunction
 
 
-function! kite#client#plan(handler)
-  let path = s:plan_path
-  if has('channel')
-    let response = s:internal_http(path, g:kite_short_timeout)
-  else
-    let response = s:external_http(s:base_url.path, g:kite_short_timeout)
-  endif
-  return a:handler(s:parse_response(response))
-endfunction
-
-
 function! kite#client#hover(filename, hash, cursor, handler)
   call s:wait_for_pending_events()
 
@@ -90,15 +79,13 @@ endfunction
 
 
 function! kite#client#signatures(json, handler)
-  call s:wait_for_pending_events()
-
   let path = s:editor_path.'/signatures'
   if has('channel')
-    let response = s:internal_http(path, g:kite_long_timeout, a:json)
+    call s:async(function('s:timer_post', [path, g:kite_long_timeout, a:json, a:handler]))
   else
-    let response = s:external_http(s:base_url.path, g:kite_long_timeout, a:json)
+    call kite#async#execute(s:external_http_cmd(s:base_url.path, g:kite_long_timeout, a:json),
+          \ function('s:parse_and_handle', [a:handler]))
   endif
-  return a:handler(s:parse_response(response))
 endfunction
 
 

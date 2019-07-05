@@ -26,6 +26,7 @@ endfunction
 function! kite#completion#autocomplete()
   if !g:kite_auto_complete | return | endif
   if exists('b:kite_skip') && b:kite_skip | return | endif
+  if wordcount().bytes > kite#max_file_size() | return | endif
 
   if s:should_trigger_completion
     let s:should_trigger_completion = 0
@@ -52,6 +53,8 @@ function! kite#completion#complete(findstart, base)
     let s:startcol = s:findstart()
     return s:startcol
   else
+    " Leave CTRL-X submode so user can invoke other completion methods.
+    call feedkeys("\<C-e>")
     call s:get_completions()
     return []
   endif
@@ -125,14 +128,28 @@ function! kite#completion#handler(counter, startcol, response) abort
     return
   endif
 
-  let matches = map(json.completions, {_, c ->
-        \   {
-        \     'word': c.insert,
-        \     'abbr': c.display,
-        \     'info': c.documentation_text,
-        \     'menu': (kite#utils#present(c, 'symbol') && kite#utils#present(c.symbol, 'value') ? c.symbol.value[0].kind : '')
-        \   }
-        \ })
+  let hint_len = 0
+  for c in json.completions
+    let hint = ' '.(strlen(c.hint) > 0 ? c.hint.' '.kite#symbol(): kite#symbol())
+    if strlen(hint) > hint_len
+      let hint_len = strlen(hint)
+    endif
+  endfor
+
+  let matches = []
+  for c in json.completions
+    let hint = ' '.(strlen(c.hint) > 0 ? c.hint.' '.kite#symbol(): kite#symbol())
+    if strlen(hint) < hint_len
+      let hint = repeat(' ', hint_len - strlen(hint)).hint
+    endif
+    call add(matches, {
+          \     'word': c.insert,
+          \     'abbr': c.display,
+          \     'info': c.documentation_text,
+          \     'menu': hint
+          \   })
+  endfor
+
   call complete(a:startcol+1, matches)
 endfunction
 

@@ -186,3 +186,5 @@ autocmd Filetype tex setl updatetime=1
 let g:livepreview_previewer= 'open -a Skim'
 autocmd FileType tex nnoremap <Leader>la :LLPStartPreview<CR> " start preview
 
+" Julia Support
+let g:default_julia_version = "1.0"

@@ -39,9 +39,8 @@ function! kite#signature#handler(counter, startcol, response) abort
   "
   " Signature
   "
-  call add(completions, s:heading('Signature'))
-
   let parameters = []
+  let return_type = ''
   let [current_arg, in_kwargs] = [call.dig('arg_index', 0), call.dig('language_details.python.in_kwargs', 0)]
   let kind = call.dig('callee.kind', '')
 
@@ -71,6 +70,11 @@ function! kite#signature#handler(counter, startcol, response) abort
     if !empty(kwarg)
       call add(parameters, '**'.kwarg.name)
     endif
+    " 1.b.4. Return type
+    let return_value = call.dig('callee.details.function.return_value', [])
+    if !empty(return_value)
+      let return_type = ' -> '.return_value[0].type
+    endif
 
   elseif kind ==# 'type'
     " 1.c.1. Parameters
@@ -97,13 +101,15 @@ function! kite#signature#handler(counter, startcol, response) abort
     if !empty(kwarg)
       call add(parameters, '*'.kwarg.name)
     endif
+    " 1.c.4. Return type
+    let return_type = ' -> '.function_name
   endif
 
   " The completion popup does not wrap long lines so we wrap manually.
-  for line in kite#utils#wrap(function_name.'('.join(parameters, ', ').')', wrap_width)
+  for line in kite#utils#wrap(kite#symbol().' '.function_name.'('.join(parameters, ', ').')'.return_type, wrap_width, 4)
     let completion = {
           \   'word':  '',
-          \   'abbr':  indent.line,
+          \   'abbr':  line,
           \   'empty': 1,
           \   'dup':   1
           \ }
@@ -136,7 +142,7 @@ function! kite#signature#handler(counter, startcol, response) abort
 
 
   " 4. Popular patterns
-  if kite#plan#is_pro()
+  if kite#signature#should_show_popular_patterns()
     let signatures = call.dig('signatures', [])
     if len(signatures) > 0
       call add(completions, spacer)
@@ -163,7 +169,7 @@ function! kite#signature#handler(counter, startcol, response) abort
       endfor
 
 
-      for line in kite#utils#wrap(function_name.'('.join(arguments, ', ').')', wrap_width)
+      for line in kite#utils#wrap(function_name.'('.join(arguments, ', ').')', wrap_width, 2)
         let completion = {
               \   'word':  '',
               \   'abbr':  indent.line,
@@ -176,6 +182,22 @@ function! kite#signature#handler(counter, startcol, response) abort
   endif
 
   call complete(a:startcol+1, completions)
+endfunction
+
+
+function! kite#signature#should_show_popular_patterns()
+  return kite#utils#get_setting('show_popular_patterns', 0)
+endfunction
+
+
+
+function! kite#signature#show_popular_patterns()
+  call kite#utils#set_setting('show_popular_patterns', 1)
+endfunction
+
+
+function! kite#signature#hide_popular_patterns()
+  call kite#utils#set_setting('show_popular_patterns', 0)
 endfunction
 
 

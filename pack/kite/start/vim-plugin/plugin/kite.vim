@@ -37,12 +37,10 @@ if !(has('nvim') || has('timers'))
   finish
 endif
 
-if kite#utils#windows()
-  " Avoid taskbar flashing on Windows when executing system() calls.
-  set noshelltemp
+" Nvim-QT
+if exists('g:GuiLoaded')
+  GuiPopupmenu 0
 endif
-
-call kite#init()
 
 augroup Kite
   autocmd!
@@ -57,4 +55,8 @@ command! KiteOpenCopilot          call kite#client#copilot()
 command! KiteGeneralSettings      call kite#client#settings()
 command! KitePermissions          call kite#client#permissions()
 command! KiteHelp                 call kite#utils#generate_help() | help kite
+command! KiteDisableAutoStart     call kite#disable_auto_start()
+command! KiteEnableAutoStart      call kite#enable_auto_start()
+command! KiteShowPopularPatterns  call kite#signature#show_popular_patterns()
+command! KiteHidePopularPatterns  call kite#signature#hide_popular_patterns()
 

@@ -3,12 +3,15 @@
 if has('win64') || has('win32') || has('win32unix')
   let s:os = 'windows'
 else
-  let uname = substitute(system('uname'), '\n', '', '')  " Darwin or Linux
-  let s:os = uname ==? 'Darwin' ? 'macos' : 'linux'
+    let s:os = empty(findfile('/sbin/launchd')) ? 'linux' : 'macos'
 endif
 
 function! kite#utils#windows()
   return s:os ==# 'windows'
+endfunction
+
+function! kite#utils#macos()
+  return s:os ==# 'macos'
 endfunction
 
 let s:separator  = !exists('+shellslash') || &shellslash ? '/' : '\'
@@ -16,6 +19,97 @@ let s:plugin_dir = expand('<sfile>:p:h:h:h')
 let s:doc_dir    = s:plugin_dir.s:separator.'doc'
 let s:lib_dir    = s:plugin_dir.s:separator.'lib'
 let s:lib_subdir = s:lib_dir.s:separator.(s:os)
+let s:vim_version = ''
+let s:plugin_version = ''
+
+
+function! kite#utils#vim_version()
+  if !empty(s:vim_version)
+    return s:vim_version
+  endif
+  let s:vim_version = kite#utils#normalise_version(execute('version'))
+  return s:vim_version
+endfunction
+
+
+function! kite#utils#normalise_version(version)
+  let lines = split(a:version, '\n')
+
+  if lines[0] =~ 'NVIM'
+    " Or use api_info().version.
+    return lines[0]  " e.g. NVIM v0.2.2
+  else
+    let [major, minor] = [v:version / 100, v:version % 100]
+
+    let patch_line = match(lines, ': \d')
+    let patches = substitute(split(lines[patch_line], ': ')[1], ' ', '', 'g')
+    return join([major, minor, patches], '.')  " e.g. 8.1.1-582
+  endif
+endfunction
+
+
+function! kite#utils#plugin_version()
+  if !empty(s:plugin_version)
+    return s:plugin_version
+  endif
+
+  let s:plugin_version = readfile(s:plugin_dir.s:separator.'VERSION')[0]
+
+  return s:plugin_version
+endfunction
+
+
+" From tpope/vim-fugitive
+function! s:winshell()
+  return kite#utils#windows() && &shellcmdflag !~# '^-'
+endfunction
+
+" From tpope/vim-fugitive
+function! s:shellescape(arg)
+  if a:arg =~ '^[A-Za-z0-9_/.-]\+$'
+    return a:arg
+  elseif s:winshell()
+    return '"'.substitute(substitute(a:arg, '"', '""', 'g'), '%', '"%"', 'g').'"'
+  else
+    return shellescape(a:arg)
+  endif
+endfunction
+
+if kite#utils#windows()
+  let s:settings_dir = join([$LOCALAPPDATA, 'Kite'], s:separator)
+else
+  let s:settings_dir = join([$HOME, '.kite'], s:separator)
+endif
+if !isdirectory(s:settings_dir)
+  call mkdir(s:settings_dir, 'p')
+endif
+let s:settings_path = s:settings_dir.s:separator.'vim-plugin.json'
+
+
+" Get the value for the given key.
+" If the key has not been set, returns the default value if given
+" (i.e. the optional argument) or -1 otherwise.
+function! kite#utils#get_setting(key, ...)
+  let settings = s:settings()
+  return get(settings, a:key, (a:0 ? a:1 : -1))
+endfunction
+
+" Sets the value for the key.
+function! kite#utils#set_setting(key, value)
+  let settings = s:settings()
+  let settings[a:key] = a:value
+  let json_str = json_encode(settings)
+  call writefile([json_str], s:settings_path)
+endfunction
+
+function! s:settings()
+  if filereadable(s:settings_path)
+    let json_str = join(readfile(s:settings_path), '')
+    return json_decode(json_str)
+  else
+    return {}
+  endif
+endfunction
 
 
 function! kite#utils#generate_help()
@@ -34,12 +128,30 @@ endfunction
 
 
 function! kite#utils#kite_installed()
+  return !empty(s:kite_install_path())
+endfunction
+
+" Returns the kite installation path including the filename, or an empty string if not installed.
+function! s:kite_install_path()
   if kite#utils#windows()
     let output = kite#async#sync('reg query HKEY_LOCAL_MACHINE\Software\Kite\AppData /v InstallPath /s /reg:64')
-    " Assume Kite is installed if the output contains 'InstallPath'
-    return match(split(output, '\n'), 'InstallPath') > -1
-  else  " osx
-    return !empty(kite#async#sync('mdfind ''kMDItemCFBundleIdentifier = "com.kite.Kite" || kMDItemCFBundleIdentifier = "enterprise.kite.Kite"'''))
+    let lines = filter(split(output, '\n'), 'v:val =~ "InstallPath"')
+    if empty(lines)
+      return ''
+    endif
+    return substitute(lines[0], '\v^\s+InstallPath\s+REG_\w+\s+', '', '').s:separator.'kited.exe'
+  elseif kite#utils#macos()
+    return kite#async#sync('mdfind ''kMDItemCFBundleIdentifier = "com.kite.Kite" || kMDItemCFBundleIdentifier = "enterprise.kite.Kite"''')
+  else
+    let path = exepath('/opt/kite/kited')
+    if !empty(path)
+      return path
+    endif
+    let path = exepath($HOME.'/.local/share/kite/kited')
+    if !empty(path)
+      return path
+    endif
+    return ''
   endif
 endfunction
 
@@ -47,11 +159,35 @@ endfunction
 function! kite#utils#kite_running()
   if kite#utils#windows()
     let [cmd, process] = ['tasklist /FI "IMAGENAME eq kited.exe"', '^kited.exe']
-  else  " osx
+  elseif kite#utils#macos()
     let [cmd, process] = ['ps -axco command', '^Kite$']
+  else
+    let [cmd, process] = ['ps -axco command', '^kited$']
   endif
 
   return match(split(kite#async#sync(cmd), '\n'), process) > -1
+endfunction
+
+
+function! kite#utils#launch_kited()
+  if kite#utils#kite_running()
+    return
+  endif
+
+  let path = s:kite_install_path()
+
+  if empty(path)
+    return
+  endif
+
+  if kite#utils#windows()
+    let $KITE_SKIP_ONBOARDING = 1
+    silent execute "!start" s:shellescape(path)
+  elseif kite#utils#macos()
+    call system('open -a '.path.' --args "--plugin-launch"')
+  else
+    silent execute '!'.path.' --plugin-launch >/dev/null 2>&1 &'
+  endif
 endfunction
 
 
@@ -328,10 +464,10 @@ endfunction
 " - becomes when wrapped:
 "
 "     dumps(obj, skipkeys, ensure_ascii, check_circular,
-"           allow_nan, cls, indent, separators, encoding,
-"           default, sort_keys, *args, **kwargs)
+"         allow_nan, cls, indent, separators, encoding,
+"         default, sort_keys, *args, **kwargs)
 "
-function! kite#utils#wrap(str, length)
+function! kite#utils#wrap(str, length, indent)
   let lines = []
 
   let str = a:str
@@ -357,7 +493,7 @@ function! kite#utils#wrap(str, length)
     call add(lines, line)
     let str = str[i+1:]
 
-    let prefix = repeat(' ', len(prefix))
+    let prefix = repeat(' ', a:indent)
   endwhile
 
   return lines
