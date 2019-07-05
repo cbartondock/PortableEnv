@@ -43,6 +43,7 @@ then
   alias vim='/usr/local/bin/vim'
 fi
 
+
 # Windows Linux Subsystem
 if [ `echo $PATH | grep -c "Windows" ` -gt 0 ]
 then

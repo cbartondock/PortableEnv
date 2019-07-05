@@ -28,9 +28,8 @@ nnoremap <Leader><space> za
 nnoremap <Leader>uf zR
 
 " syntax and filetype highlighting
-filetype plugin indent on
 syntax enable
-
+filetype plugin indent on
 
 " cursor
 set ruler
