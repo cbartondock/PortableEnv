@@ -1,4 +1,6 @@
-source ~/.profile
+if [ -f "$HOME/.profile" ]; then
+	source ~/.profile
+fi
 
 # ZSH
 export ZSH="$HOME/.oh-my-zsh"
@@ -80,7 +82,8 @@ fi
 # Android
 if [ -d "$HOME/Library/Android" ]
 then
-  alias emudroid= "$HOME/Library/Android/sdk/emulator/emulator @Nexus_5X_API_28_x86"
+	alias emu="$HOME/Library/Android/sdk/emulator/emulator"
+	alias emudroid="emu @$(echo \"$(emu -list-avds)\" | awk '{print $1;}')"
   export ANDROID_HOME="$HOME/Library/Android/sdk/"
   export PATH="$PATH:$ANDROID_HOME/emulator"
   export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
