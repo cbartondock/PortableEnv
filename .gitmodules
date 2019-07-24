@@ -40,3 +40,6 @@
 [submodule "bundle/vimtex"]
 	path = bundle/vimtex
   url = https://github.com/lervag/vimtex.git
+[submodule "bundle/julia-vim"]
+	path = bundle/julia-vim
+	url = git://github.com/JuliaEditorSupport/julia-vim.git
