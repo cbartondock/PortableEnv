@@ -22,7 +22,6 @@ set clipboard=unnamed
 nnoremap y "*y
 nnoremap p "*p
 
-
 " fold maps
 nnoremap <Leader><space> za
 nnoremap <Leader>uf zR
@@ -180,5 +179,9 @@ augroup END
 " Live Tex Previewing
 autocmd Filetype tex setl updatetime=1
 let g:livepreview_previewer= 'open -a Skim'
+autocmd FileType tex nnoremap <Leader>la :LLPStartPreview<CR> " start preview
 
 " Whoopsy moments
+
+" Julia Support
+let g:default_julia_version = "1.0"

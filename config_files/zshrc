@@ -1,4 +1,6 @@
-source ~/.profile
+if [ -f "$HOME/.profile" ]; then
+	source ~/.profile
+fi
 
 # ZSH
 export ZSH="$HOME/.oh-my-zsh"
@@ -49,10 +51,6 @@ if [ `echo $PATH | grep -c "Windows" ` -gt 0 ]
 then
 	export DISPLAY=localhost:0
 	export BROWSER=/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
-  export LS_COLORS="di=34:ln=35:so=32:ex=31:ow=34"
-else
-  export CLICOLOR=1
-  export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
 fi
 
 # Improved ls
@@ -61,7 +59,21 @@ if [ -z $LS_NATURAL ]
 then
   export LS_NATURAL="$(which ls)"
 fi
-alias ls="$LS_NATURAL -a -h --group-directories-first --color=tty"
+if [ "$OSTYPE" = "linux-gnu" ];
+then
+  export LS_COLORS="di=34:ln=35:so=32:ex=31:ow=34"
+	alias ls="$LS_NATURAL --group-directories-first --color=tty"
+else
+	if type gls > /dev/null;
+	then
+		export LS_COLORS="di=34:ln=35:so=32:ex=31:ow=34"
+		alias ls="gls --group-directories-first --color=tty"
+	else
+	  export CLICOLOR=1
+		export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+		alias ls="$LS_NATURAL -G"
+	fi
+fi
 alias la='ls -la | grep "^d" && ls -la | grep "^-" && ls -la | grep "^l"'
 
 # NVM
@@ -80,7 +92,8 @@ fi
 # Android
 if [ -d "$HOME/Library/Android" ]
 then
-  alias emudroid= "$HOME/Library/Android/sdk/emulator/emulator @Nexus_5X_API_28_x86"
+	alias emu="$HOME/Library/Android/sdk/emulator/emulator"
+	alias emudroid="emu @$(echo \"$(emu -list-avds)\" | awk '{print $1;}')"
   export ANDROID_HOME="$HOME/Library/Android/sdk/"
   export PATH="$PATH:$ANDROID_HOME/emulator"
   export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
