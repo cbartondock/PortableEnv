@@ -174,9 +174,11 @@ augroup AutoSaveFolds
   autocmd BufWinLeave ?* mkview
   autocmd BufWinEnter ?* silent loadview
 augroup END
-hi! Folded ctermbg=NONE ctermfg=83
-hi! FoldColumn ctermbg=NONE ctermfg=83
+" hi! Folded ctermbg=NONE ctermfg=83
+" hi! FoldColumn ctermbg=NONE ctermfg=83
 
 " Live Tex Previewing
 autocmd Filetype tex setl updatetime=1
 let g:livepreview_previewer= 'open -a Skim'
+
+" Whoopsy moments

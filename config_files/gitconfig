@@ -13,6 +13,8 @@
   save = !git add -A && git commit -m 'SAVEPOINT'
   rblist = !git remote update origin --prune && git branch -r
   quickserve = daemon --verbose --enable=receive-pack  --export-all --base-path=.git --reuseaddr --strict-paths .git/
+  launch = !git init && git save && git cob temp && git quickserve
+  land = !sh -c 'git clone git://$(hostname)/ $1 && cd $1 && git checkout master' -
 [diff]
   tool = vimdiff
 [difftool]

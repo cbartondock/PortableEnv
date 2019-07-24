@@ -47,7 +47,7 @@ fi
 # Windows Linux Subsystem
 if [ `echo $PATH | grep -c "Windows" ` -gt 0 ]
 then
-	export DISPLAY=:0
+	export DISPLAY=localhost:0
 	export BROWSER=/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
   export LS_COLORS="di=34:ln=35:so=32:ex=31:ow=34"
 else
