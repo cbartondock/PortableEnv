@@ -39,6 +39,16 @@ alias c++='g++-8'
 alias py='python'
 alias py3='python3'
 
+# Other Aliases
+alias cd..='cd ..'
+alias ..='cd ..'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+alias .....='cd ../../../../'
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
 # Respect the Local Vim
 if [ -d "/usr/local/bin/vim" ]
 then
