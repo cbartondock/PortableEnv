@@ -34,3 +34,12 @@
 [submodule "bundle/vim-better-whitespace"]
 	path = bundle/vim-better-whitespace
 	url = git://github.com/ntpeters/vim-better-whitespace.git
+[submodule "bundle/vim-latex-live-preview"]
+	path = bundle/vim-latex-live-preview
+	url = https://github.com/xuhdev/vim-latex-live-preview.git
+[submodule "bundle/vimtex"]
+	path = bundle/vimtex
+  url = https://github.com/lervag/vimtex.git
+[submodule "bundle/julia-vim"]
+	path = bundle/julia-vim
+	url = git://github.com/JuliaEditorSupport/julia-vim.git

@@ -13,7 +13,14 @@ if ip == "Coding"
   colorscheme solarized
 elseif ip == "Writing"
   colorscheme minimalist
+else
+  colorscheme desertink
 endif
+
+" system clipboard
+set clipboard=unnamed
+nnoremap y "*y
+nnoremap p "*p
 
 " fold maps
 nnoremap <Leader><space> za
@@ -85,8 +92,8 @@ let NERDTreeAutoDeleteBuffer = 1
 "disable certain shortcuts while focused on NerdTree
 autocmd FileType nerdtree noremap <buffer> <Leader>i <nop>
 autocmd FileType nerdtree noremap <buffer> <Leader>r <nop>
-autocmd FileType nerdtree noremap <buffer> <Leader>n <nop>
 autocmd FileType nerdtree noremap <buffer> <Leader>p <nop>
+autocmd FileType nerdtree noremap <buffer> <Leader>n <nop>
 autocmd FileType nerdtree noremap <buffer> <Leader>d <nop>
 
 " airline stuff
@@ -94,7 +101,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = "\ue0b0 "
 let g:airline#extensions#tabline#left_alt_sep = "\ue0b1"
 let g:airline_powerline_fonts = 1
-let g:airline_theme='luna'
+let g:airline_theme='desertink'
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
 
 " buffer switching stuff
@@ -166,8 +173,11 @@ augroup AutoSaveFolds
   autocmd BufWinLeave ?* mkview
   autocmd BufWinEnter ?* silent loadview
 augroup END
-hi! Folded ctermbg=NONE ctermfg=83
-hi! FoldColumn ctermbg=NONE ctermfg=83
+" hi! Folded ctermbg=NONE ctermfg=83
+" hi! FoldColumn ctermbg=NONE ctermfg=83
 
-" if you forgot to open a restricted file w/ sudo
-" cmap w!! w !sudo tee > /dev/null %
+" Live Tex Previewing
+autocmd Filetype tex setl updatetime=1
+let g:livepreview_previewer= 'open -a Skim'
+autocmd FileType tex nnoremap <Leader>la :LLPStartPreview<CR> " start preview
+
