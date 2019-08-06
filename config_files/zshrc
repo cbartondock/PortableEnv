@@ -50,6 +50,13 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
 # Respect the Local Vim
+if [ -d "/usr/local/bin/vim" ]
+then
+  alias vim='/usr/local/bin/vim'
+fi
+
+
+# Windows Linux Subsystem
 if [ `echo $PATH | grep -c "Windows" ` -gt 0 ]
 then
 	export DISPLAY=localhost:0
@@ -102,9 +109,8 @@ then
   export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 fi
 
-# Google Cloud SDK.
-if [ -f '/Users/senordock/Documents/ENEE633/Project2/google-cloud-sdk/path.zsh.inc' ]
+# Source the local specific config
+if [ -f "$HOME/.zshlocal" ]
 then
-  . '/Users/senordock/Documents/ENEE633/Project2/google-cloud-sdk/path.zsh.inc'
+  source "$HOME/.zshlocal"
 fi
-
