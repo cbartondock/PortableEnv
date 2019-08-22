@@ -87,10 +87,10 @@ fi
 alias la='ls -la | grep "^d" && ls -la | grep "^-" && ls -la | grep "^l"'
 
 # NVM
-if [ -d "/usr/local/opt/nvm" ]
+if [ -d "$HOME/.nvm" ]
 then
   export NVM_DIR="$HOME/.nvm"
-  . "/usr/local/opt/nvm/nvm.sh"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 fi
 
 # Fastlane
