@@ -67,7 +67,7 @@ fi
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 if [ -z $LS_NATURAL ]
 then
-  export LS_NATURAL="$(which ls)"
+  export LS_NATURAL="/bin/ls"
 fi
 if [ "$OSTYPE" = "linux-gnu" ];
 then
