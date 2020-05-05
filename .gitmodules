@@ -48,4 +48,5 @@
 	url = https://github.com/leafgarland/typescript-vim.git
 [submodule "bundle/vim-colorschemes"]
 	path = bundle/vim-colorschemes
-	url = https://github.com/flazz/vim-colorschemes.git
+  url = https://github.com/flazz/vim-colorschemes.git
+  ignore = dirty
