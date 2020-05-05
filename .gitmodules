@@ -46,6 +46,3 @@
 [submodule "bundle/typescript-vim"]
 	path = bundle/typescript-vim
 	url = https://github.com/leafgarland/typescript-vim.git
-[submodule "/home/pi/.vim/bundle/vim-colorschemes"]
-	path = /home/pi/.vim/bundle/vim-colorschemes
-	url = https://github.com/flazz/vim-colorschemes.git
