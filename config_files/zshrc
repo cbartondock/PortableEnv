@@ -14,7 +14,7 @@ theme-and-appearance
 source $ZSH/oh-my-zsh.sh
 # Powerline Go
 function powerline_precmd() {
-    PS1="$($GOPATH/bin/powerline-go -error $? -shell zsh -colorize-hostname -hostname-only-if-ssh -cwd-max-depth 2 -cwd-max-dir-size 13 -modules "host,cwd,git,jobs")"
+    PS1="$($GOPATH/bin/powerline-go -error $? -shell zsh -colorize-hostname -hostname-only-if-ssh -cwd-max-depth 2 -cwd-max-dir-size 13 -modules "host,cwd,git,root,jobs")"
 }
 
 function install_powerline_precmd() {
