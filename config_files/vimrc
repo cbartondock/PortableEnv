@@ -7,7 +7,7 @@ let ip = $ITERM_PROFILE|"Coding"
 
 " leaders
 nnoremap <Space> <Nop>
-let Leader="\\" "localleader is space
+let Leader="\\" "Leader is space
 map <Space> <Leader>
 sunmap <Space>
 
