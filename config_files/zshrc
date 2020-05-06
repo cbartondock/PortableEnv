@@ -114,6 +114,12 @@ if [ -d "/.fastlane/bin" ]
 then
   export PATH="$PATH:$HOME/.fastlane/bin"
 fi
+# Go
+if [ -d "/usr/local/go" ]
+then
+  export GOPATH="/usr/local/gopath"
+  export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin"
+fi
 
 # Android
 if [ -d "$HOME/Library/Android" ]
