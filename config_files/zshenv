@@ -1,0 +1,35 @@
+# ZSH
+export ZSH="$HOME/.oh-my-zsh"
+
+# Windows Linux Subsystem
+if [ `echo $PATH | grep -c "Windows" ` -gt 0 ]
+then
+	export DISPLAY=localhost:0
+	export BROWSER=/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
+fi
+
+# NVM
+if [ -d "$HOME/.nvm" ]
+then
+  export NVM_DIR="$HOME/.nvm"
+fi
+
+# Fastlane
+if [ -d "/.fastlane/bin" ]
+then
+  export PATH="$PATH:$HOME/.fastlane/bin"
+fi
+# Go
+if [ -d "/usr/local/go" ]
+then
+  export GOPATH="/usr/local/gopath"
+  export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin"
+fi
+
+# Android
+if [ -d "$HOME/Library/Android" ]
+then
+  export ANDROID_HOME="$HOME/Library/Android/sdk/"
+  export PATH="$PATH:$ANDROID_HOME/emulator"
+  export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
+fi
