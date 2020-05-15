@@ -52,6 +52,9 @@ alias c++='g++-8'
 alias py='python'
 alias py3='python3'
 
+# Auth aliases
+alias authgit='ssh-add github_rsa'
+
 # Other Aliases
 alias cd..='cd ..'
 alias ..='cd ..'
@@ -61,6 +64,7 @@ alias .....='cd ../../../../'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
+
 
 # Respect the Local Vim
 if [ -d "/usr/local/bin/vim" ]
@@ -92,11 +96,11 @@ fi
 alias la='ls -la | grep "^d" && ls -la | grep "^-" && ls -la | grep "^l"'
 
 # NVM
-if [ -d "$HOME/.nvm" ]
-then
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-fi
+# if [ -d "$HOME/.nvm" ]
+# then
+#   export NVM_DIR="$HOME/.nvm"
+#   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# fi
 
 # Fastlane
 if [ -d "/.fastlane/bin" ]
