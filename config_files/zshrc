@@ -15,12 +15,14 @@ theme-and-appearance
 source $ZSH/oh-my-zsh.sh
 
 # Windows Linux Subsystem
-if [ `echo $PATH | grep -c "Windows" ` -gt 0 ]
-then
+if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
 	export DISPLAY=picard.local:0
+  export XDG_RUNTIME_DIR=$HOME/.xdgdir
+  export RUNLEVEL=3
+  sudo /etc/init.d/dbus start
+  alias xsession='dbus-launch --exit-with-session ~/.xsession'
 	export BROWSER=/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
 fi
-
 
 # Powerline Go
 function powerline_precmd() {
