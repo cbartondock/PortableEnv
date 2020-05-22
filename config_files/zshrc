@@ -16,12 +16,18 @@ source $ZSH/oh-my-zsh.sh
 
 # Windows Linux Subsystem
 if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
-	export DISPLAY=picard.local:0
+  if [ "$SSH_CONNECTION" ]; then
+    #export DISPLAY=:0
+  else
+    export DISPLAY=picard.local.0
+  fi
   export XDG_RUNTIME_DIR=$HOME/.xdgdir
   export RUNLEVEL=3
   sudo /etc/init.d/dbus start
   alias xsession='dbus-launch --exit-with-session ~/.xsession'
 	export BROWSER=/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
+else
+  export DISPLAY=:0
 fi
 
 # Powerline Go
