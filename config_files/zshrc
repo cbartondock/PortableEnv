@@ -17,7 +17,7 @@ source $ZSH/oh-my-zsh.sh
 # Windows Linux Subsystem
 if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
   if [ "$SSH_CONNECTION" ]; then
-    #export DISPLAY=:0
+    export DISPLAY=PICARD:10.0
   else
     export DISPLAY=picard.local.0
   fi
@@ -26,9 +26,12 @@ if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
   sudo /etc/init.d/dbus start
   alias xsession='dbus-launch --exit-with-session ~/.xsession'
 	export BROWSER=/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
+elif [ "$SSH_CONNECTION" ]; then
+  export DISPLAY=:10
 else
   export DISPLAY=:0
 fi
+
 
 # Powerline Go
 function powerline_precmd() {
