@@ -19,7 +19,7 @@ if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
   if [ "$SSH_CONNECTION" ]; then
     export DISPLAY=PICARD:10.0
   else
-    export DISPLAY=picard.local.0
+    export DISPLAY=picard.local:0
   fi
   export XDG_RUNTIME_DIR=$HOME/.xdgdir
   export RUNLEVEL=3
