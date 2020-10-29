@@ -14,17 +14,33 @@ theme-and-appearance
 )
 source $ZSH/oh-my-zsh.sh
 
+# Respect the Local Vim
+svim='sudo vim'
+if [ -d "/usr/local/bin/vim" ]
+then
+  alias vim='/usr/local/bin/vim'
+  alias svim='sudo /usr/local/bin/vim'
+fi
+
 # Windows Linux Subsystem
 if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
   if [ "$SSH_CONNECTION" ]; then
     export DISPLAY=PICARD:10.0
   else
-    export DISPLAY=picard.local:0
+    export DISPLAY=192.168.0.215:0
   fi
+  sudo ifconfig eth0 mtu 1350 #fix wsl over vpn
   export XDG_RUNTIME_DIR=$HOME/.xdgdir
   export RUNLEVEL=3
-  sudo /etc/init.d/dbus start
+  sudo /etc/init.d/dbus start >/dev/null
+  alias xdesktop='/mnt/c/Program\ Files/VcXsrv/vcxsrv.exe :0 -fullscreen -ac &; sleep 0.5; dbus-launch --exit-with-session ~/.xsession &> /dev/null;'
   alias xsession='dbus-launch --exit-with-session ~/.xsession'
+  alias sshconf='sudo vim /etc/ssh/sshd_config'
+  alias sshstart='sudo service ssh start'
+  alias sshstop='sudo service ssh stop'
+  alias sshidentities='ssh-add -l'
+  alias vim='vim -X' # Disable X11 Connection
+  alias svim='sudo vim -X'
 	export BROWSER=/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
 elif [ "$SSH_CONNECTION" ]; then
   export DISPLAY=:10
@@ -76,12 +92,6 @@ alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
-
-# Respect the Local Vim
-if [ -d "/usr/local/bin/vim" ]
-then
-  alias vim='/usr/local/bin/vim'
-fi
 
 # Improved ls
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
