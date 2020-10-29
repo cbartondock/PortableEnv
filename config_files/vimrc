@@ -24,8 +24,8 @@ endif
 set clipboard=unnamed
 nnoremap y "*y
 nnoremap p "*p
-noremap <Leader>y y
-noremap <Leader>o p
+noremap yv y
+noremap pv p
 
 " persistent undo
 set undodir=~/.vim/undo
