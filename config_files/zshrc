@@ -27,20 +27,20 @@ if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
   if [ "$SSH_CONNECTION" ]; then
     export DISPLAY=PICARD:10.0
   else
-    export DISPLAY=192.168.0.215:0
+    export DISPLAY=192.168.0.215:1.0
   fi
   sudo ifconfig eth0 mtu 1350 #fix wsl over vpn
   export XDG_RUNTIME_DIR=$HOME/.xdgdir
   export RUNLEVEL=3
   sudo /etc/init.d/dbus start >/dev/null
-  alias xdesktop='/mnt/c/Program\ Files/VcXsrv/vcxsrv.exe :0 -fullscreen -ac &; sleep 0.5; dbus-launch --exit-with-session ~/.xsession &> /dev/null;'
-  alias xsession='dbus-launch --exit-with-session ~/.xsession'
+  # currently in order for the xdesktop to work one needs to exit out of the vcxsrv that is providing clipboard sync.
+  alias xdesktop='/mnt/c/Program\ Files/VcXsrv/vcxsrv.exe :0 -ac &; sleep 0.5; dbus-launch --exit-with-session ~/.xsession &> /dev/null;'
   alias sshconf='sudo vim /etc/ssh/sshd_config'
   alias sshstart='sudo service ssh start'
   alias sshstop='sudo service ssh stop'
   alias sshidentities='ssh-add -l'
-  alias vim='vim -X' # Disable X11 Connection
-  alias svim='sudo vim -X'
+  alias xvim='vim -X' # Disable X11 Connection
+  alias svim='sudo vim'
 	export BROWSER=/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
 elif [ "$SSH_CONNECTION" ]; then
   export DISPLAY=:10
