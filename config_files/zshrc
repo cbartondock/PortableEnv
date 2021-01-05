@@ -22,6 +22,7 @@ svim='sudo vim'
 if [ -d "/usr/local/bin/vim" ]
 then
   alias vim='/usr/local/bin/vim'
+  alias xvim='/usr/local/bin/vim -X'
   alias svim='sudo /usr/local/bin/vim'
 fi
 
