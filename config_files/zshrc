@@ -74,7 +74,7 @@ alias py3='python3'
 alias authgit='ssh-add ~/.ssh/github_rsa'
 
 # SSH aliases
-alias sshconf='sudo vim /etc/ssh/sshd_config'
+alias sshconf='sudo -E vim /etc/ssh/sshd_config'
 alias sshstart='sudo service ssh start'
 alias sshstop='sudo service ssh stop'
 alias sshidentities='ssh-add -l'
@@ -84,7 +84,6 @@ alias xvim='vim -X' # Disable X11 Connection
 alias svim='sudo -E vim'
 
 # Respect the Local Vim
-svim='sudo vim'
 if [ -d "/usr/local/bin/vim" ]
 then
   alias vim='/usr/local/bin/vim'
