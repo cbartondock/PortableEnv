@@ -175,4 +175,3 @@ if [ -f "$HOME/.zshlocal" ]
 then
   source "$HOME/.zshlocal"
 fi
-. "/home/pi/.acme.sh/acme.sh.env"
