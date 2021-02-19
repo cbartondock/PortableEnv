@@ -96,7 +96,7 @@ alias cd..='cd ..'
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
-
+alias sizes='sudo du -sh *'
 
 # Improved ls
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
