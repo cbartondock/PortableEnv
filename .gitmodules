@@ -56,3 +56,6 @@
 [submodule "bundle/vim-shaderlab"]
 	path = bundle/vim-shaderlab
 	url = https://github.com/mingchaoyan/vim-shaderlab.git
+[submodule "vim-ps1"]
+	path = vim-ps1
+	url = https://github.com/PProvost/vim-ps1.git
