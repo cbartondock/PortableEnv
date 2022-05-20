@@ -187,11 +187,3 @@ augroup AutoSaveFolds
 augroup END
 " hi! Folded ctermbg=NONE ctermfg=83
 " hi! FoldColumn ctermbg=NONE ctermfg=83
-
-" Live Tex Previewing
-autocmd Filetype tex setl updatetime=1
-let g:livepreview_previewer= 'open -a Skim'
-autocmd FileType tex nnoremap <Leader>la :LLPStartPreview<CR>
-
-" Julia Support
-let g:default_julia_version= "1.0"
