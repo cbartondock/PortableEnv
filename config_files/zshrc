@@ -1,5 +1,5 @@
 if [ -f "$HOME/.profile" ]; then
-  source ~/.profile
+	source ~/.profile
 fi
 
 # Correct non bashlike wildcard behavior
@@ -8,59 +8,59 @@ set nonomatch
 # ZSH
 export ZSH="$HOME/.oh-my-zsh"
 plugins=(
-git #ga (git add) gb (git branch) etc
-osx #spotify man-preview show/hidefiles ofd/cdf (open/cd Finder d)
-#ssh-agent #runs ssh agent automatically
+	git #ga (git add) gb (git branch) etc
+	osx #spotify man-preview show/hidefiles ofd/cdf (open/cd Finder d)
+	#ssh-agent #runs ssh agent automatically
 )
 excludeconfigs=(
-theme-and-appearance
+	theme-and-appearance
 )
 source $ZSH/oh-my-zsh.sh
 
 # Windows Linux Subsystem
 if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
-  if [ "$SSH_CONNECTION" ]; then
-    export DISPLAY=PICARD:10.0
-  else
-    # I really want to be able to tell whether vcxsrv is in fullscreen (:0) or not (:1)
-    export DISPLAY=192.168.0.215:1.0
-  fi
-  sudo ifconfig eth0 mtu 1350 #fix wsl over vpn
-  export XDG_RUNTIME_DIR=$HOME/.xdgdir
-  export RUNLEVEL=3
-  sudo /etc/init.d/dbus start >/dev/null
-  # currently in order for the xdesktop to work one needs to exit out of the vcxsrv that is providing clipboard sync.
-    alias xwindow='export DISPLAY=192.168.0.215:0.0; /mnt/c/Program\ Files/VcXsrv/vcxsrv.exe :0 -ac &; sleep 0.5; dbus-launch --exit-with-session ~/.xsession &> /dev/null;'
-    alias xdesktop='export DISPLAY=192.168.0.215:0.0; /mnt/c/Program\ Files/VcXsrv/vcxsrv.exe :0 -ac -fullscreen &; sleep 0.5; dbus-launch --exit-with-session ~/.xsession &> /dev/null;'
-    alias displayzero='export DISPLAY=192.168.0.215:0.0'
-    export BROWSER=/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
-  elif [ "$SSH_CONNECTION" ]; then
-    export DISPLAY=:10
-  else
-    export DISPLAY=:0
-  fi
+	if [ "$SSH_CONNECTION" ]; then
+		export DISPLAY=PICARD:10.0
+	else
+		# I really want to be able to tell whether vcxsrv is in fullscreen (:0) or not (:1)
+		export DISPLAY=192.168.0.215:1.0
+	fi
+	sudo ifconfig eth0 mtu 1350 #fix wsl over vpn
+	export XDG_RUNTIME_DIR=$HOME/.xdgdir
+	export RUNLEVEL=3
+	sudo /etc/init.d/dbus start >/dev/null
+	# currently in order for the xdesktop to work one needs to exit out of the vcxsrv that is providing clipboard sync.
+	alias xwindow='export DISPLAY=192.168.0.215:0.0; /mnt/c/Program\ Files/VcXsrv/vcxsrv.exe :0 -ac &; sleep 0.5; dbus-launch --exit-with-session ~/.xsession &> /dev/null;'
+	alias xdesktop='export DISPLAY=192.168.0.215:0.0; /mnt/c/Program\ Files/VcXsrv/vcxsrv.exe :0 -ac -fullscreen &; sleep 0.5; dbus-launch --exit-with-session ~/.xsession &> /dev/null;'
+	alias displayzero='export DISPLAY=192.168.0.215:0.0'
+	export BROWSER=/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe
+elif [ "$SSH_CONNECTION" ]; then
+	export DISPLAY=:10
+else
+	export DISPLAY=:0
+fi
 
 
 # Powerline Go
 function powerline_precmd() {
-  PS1="$($GOPATH/bin/powerline-go -error $? -shell zsh -colorize-hostname -hostname-only-if-ssh -cwd-max-depth 2 -cwd-max-dir-size 13 -modules "host,cwd,git,root,jobs")"
-  }
+	PS1="$($GOPATH/bin/powerline-go -error $? -shell zsh -colorize-hostname -hostname-only-if-ssh -cwd-max-depth 2 -cwd-max-dir-size 13 -modules "host,cwd,git,root,jobs")"
+}
 
 function install_powerline_precmd() {
-  for s in "${precmd_functions[@]}"; do
-    if [ "$s" = "powerline_precmd" ]; then
-      return
-    fi
-  done
-  precmd_functions+=(powerline_precmd)
+	for s in "${precmd_functions[@]}"; do
+		if [ "$s" = "powerline_precmd" ]; then
+			return
+		fi
+	done
+	precmd_functions+=(powerline_precmd)
 }
 
 if [ "$TERM" != "linux" ]; then
-  install_powerline_precmd
+	install_powerline_precmd
 fi
 
 if [ "$TERM" != "linux" ]; then
-  install_powerline_precmd
+	install_powerline_precmd
 fi
 
 # Compiler/Interpreter Aliases
@@ -87,9 +87,9 @@ alias svim='sudo -E vim'
 # Respect the Local Vim
 if [ -d "/usr/local/bin/vim" ]
 then
-  alias vim='/usr/local/bin/vim'
-  alias xvim='/usr/local/bin/vim -X'
-  alias svim='sudo -E /usr/local/bin/vim'
+	alias vim='/usr/local/bin/vim'
+	alias xvim='/usr/local/bin/vim -X'
+	alias svim='sudo -E /usr/local/bin/vim'
 fi
 
 # Other aliases
@@ -103,75 +103,75 @@ alias sizes='sudo du -sh *'
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 if [ -z $LS_NATURAL ]
 then
-  export LS_NATURAL="/bin/ls"
+	export LS_NATURAL="/bin/ls"
 fi
 if [ "$OSTYPE" = "linux-gnu" ];
 then
-  export LS_COLORS="di=34:ln=35:so=32:ex=31:ow=34"
-  alias ls="$LS_NATURAL --group-directories-first --color=tty"
+	export LS_COLORS="di=34:ln=35:so=32:ex=31:ow=34"
+	alias ls="$LS_NATURAL --group-directories-first --color=tty"
 else
-  if type gls > /dev/null;
-  then
-    export LS_COLORS="di=34:ln=35:so=32:ex=31:ow=34"
-    alias ls="gls --group-directories-first --color=tty"
-  else
-    export CLICOLOR=1
-    export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
-    alias ls="$LS_NATURAL -G"
-fi
+	if type gls > /dev/null;
+	then
+		export LS_COLORS="di=34:ln=35:so=32:ex=31:ow=34"
+		alias ls="gls --group-directories-first --color=tty"
+	else
+		export CLICOLOR=1
+		export LSCOLORS=gxBxhxDxfxhxhxhxhxcxcx
+		alias ls="$LS_NATURAL -G"
+	fi
 fi
 alias la='ls -la | grep "^d" && ls -la | grep "^-" && ls -la | grep "^l"'
 
 # NVM
 if [ -s "$HOME/.nvm/nvm.sh" ]; then
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
-  alias nvm='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && nvm'
-  alias node='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && node'
-  alias npm='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && npm'
+	export NVM_DIR="$HOME/.nvm"
+	[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+	alias nvm='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && nvm'
+	alias node='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && node'
+	alias npm='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && npm'
 fi
 # Defer initialization of nvm until nvm, node or a node-dependent command is
-  # run. Ensure this block is only run once if .bashrc gets sourced multiple times
-    # by checking whether __init_nvm is a function.
-    if [ -s "$HOME/.nvm/nvm.sh" ] && [ ! "$(type -m __init_nvm)" = function ]; then
-      export NVM_DIR="$HOME/.nvm"
-      [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
-      declare -a __node_commands=('nvm' 'node' 'npm' 'yarn' 'gulp' 'grunt' 'webpack')
-      function __init_nvm() {
-        for i in "${__node_commands[@]}"; do unalias $i; done
-        . "$NVM_DIR"/nvm.sh
-        unset __node_commands
-        unset -f __init_nvm
-      }
-    for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
-    fi
+# run. Ensure this block is only run once if .bashrc gets sourced multiple times
+# by checking whether __init_nvm is a function.
+if [ -s "$HOME/.nvm/nvm.sh" ] && [ ! "$(type -m __init_nvm)" = function ]; then
+	export NVM_DIR="$HOME/.nvm"
+	[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+	declare -a __node_commands=('nvm' 'node' 'npm' 'yarn' 'gulp' 'grunt' 'webpack')
+	function __init_nvm() {
+		for i in "${__node_commands[@]}"; do unalias $i; done
+		. "$NVM_DIR"/nvm.sh
+		unset __node_commands
+		unset -f __init_nvm
+	}
+	for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
+fi
 
 
 # Fastlane
 if [ -d "/.fastlane/bin" ]
 then
-  export PATH="$PATH:$HOME/.fastlane/bin"
-    fi
+	export PATH="$PATH:$HOME/.fastlane/bin"
+fi
 
 # Go
 if [ -d "/usr/local/go" ]
 then
-  export GOPATH="/usr/local/gopath"
-  export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin"
-    fi
+	export GOPATH="/usr/local/gopath"
+	export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin"
+fi
 
 # Android
 if [ -d "$HOME/Library/Android" ]
 then
-  export ANDROID_HOME="$HOME/Library/Android/sdk/"
-  export PATH="$PATH:$ANDROID_HOME/emulator"
-  export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
-  alias emu="$HOME/Library/Android/sdk/emulator/emulator"
-  alias emudroid="emu @$(echo \"$(emu -list-avds)\" | awk '{print $1;}')"
-    fi
+	export ANDROID_HOME="$HOME/Library/Android/sdk/"
+	export PATH="$PATH:$ANDROID_HOME/emulator"
+	export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
+	alias emu="$HOME/Library/Android/sdk/emulator/emulator"
+	alias emudroid="emu @$(echo \"$(emu -list-avds)\" | awk '{print $1;}')"
+fi
 
 # Source the local specific config
 if [ -f "$HOME/.zshlocal" ]
 then
-  source "$HOME/.zshlocal"
-    fi
+	source "$HOME/.zshlocal"
+fi
