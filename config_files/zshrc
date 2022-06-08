@@ -60,10 +60,6 @@ if [ "$TERM" != "linux" ]; then
   install_powerline_precmd
 fi
 
-if [ "$TERM" != "linux" ]; then
-  install_powerline_precmd
-fi
-
 # Compiler/Interpreter Aliases
 alias gcc8='gcc-8'
 alias cc8='gcc-8'
@@ -176,6 +172,23 @@ then
   export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
   alias emu="$HOME/Library/Android/sdk/emulator/emulator"
   alias emudroid="emu @$(echo \"$(emu -list-avds)\" | awk '{print $1;}')"
+fi
+
+# If a manjaro zsh config exists, use it
+if [ -d "/etc/skel" ]
+then
+  # Use the skel zshrc instead of the customized version below to get the default manjaro zsh
+  # source /etc/skel/.zshrc
+  # Use powerline
+  USE_POWERLINE="true"
+  # Source manjaro-zsh-configuration
+  if [[ -e /usr/share/zsh/manjaro-zsh-config ]]; then
+    source /usr/share/zsh/manjaro-zsh-config
+  fi
+  # Use manjaro zsh prompt
+  if [[ -e /usr/share/zsh/manjaro-zsh-prompt ]]; then
+    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+  fi
 fi
 
 # Source the local specific config
