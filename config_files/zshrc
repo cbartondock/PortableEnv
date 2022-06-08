@@ -79,6 +79,11 @@ alias sshstart='sudo service ssh start'
 alias sshstop='sudo service ssh stop'
 alias sshidentities='ssh-add -l'
 alias sshagent='eval $(ssh-agent)'
+function authkey() {
+  echo "# $2" >> ~/test_file
+  cat $1 >> ~/test_file
+  echo "" >> ~/test_file
+}
 # Vim aliases
 alias xvim='vim -X' # Disable X11 Connection
 alias svim='sudo -E vim'
