@@ -39,7 +39,6 @@ else
   export DISPLAY=:0
 fi
 
-
 # Powerline Go
 function powerline_precmd() {
   PS1="$($GOPATH/bin/powerline-go -error $? -shell zsh -colorize-hostname -hostname-only-if-ssh -cwd-max-depth 2 -cwd-max-dir-size 13 -modules "host,cwd,git,root,jobs")"
@@ -63,10 +62,10 @@ if [ "$TERM" != "linux" ]; then
 fi
 
 # Compiler/Interpreter Aliases
-alias gcc='gcc-8'
-alias cc='gcc-8'
-alias g++='g++-8'
-alias c++='g++-8'
+alias gcc8='gcc-8'
+alias cc8='gcc-8'
+alias g8++='g++-8'
+alias c8++='g++-8'
 alias py='python'
 alias py3='python3'
 
