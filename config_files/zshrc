@@ -93,6 +93,9 @@ then
   alias vim='/usr/local/bin/vim'
   alias xvim='/usr/local/bin/vim -X'
   alias svim='sudo -E /usr/local/bin/vim'
+else
+  alias xvim='vim -X'
+  alias svim='sudo -E vim'
 fi
 
 # Other aliases
@@ -146,7 +149,7 @@ if [ -s "$HOME/.nvm/nvm.sh" ] && [ ! "$(type -m __init_nvm)" = function ]; then
     unset __node_commands
     unset -f __init_nvm
   }
-for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
+  for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
 fi
 
 
