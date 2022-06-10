@@ -151,6 +151,14 @@ then
   alias emudroid="emu @$(echo \"$(emu -list-avds)\" | awk '{print $1;}')"
 fi
 
+# Pyenv
+if [ -d "$HOME/.pyenv" ]
+then
+  export PATH="$HOME/.pyenv/bin:$PATH"
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+fi
+
 # If a manjaro zsh config exists, use it
 if [ -d "/etc/skel" ]
 then
