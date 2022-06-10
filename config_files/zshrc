@@ -159,6 +159,12 @@ then
   eval "$(pyenv virtualenv-init -)"
 fi
 
+# CalibreWeb
+if [ -d "$HOME/.local/bin" ]
+then
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
 # If a manjaro zsh config exists, use it
 if [ -d "/etc/skel" ]
 then
