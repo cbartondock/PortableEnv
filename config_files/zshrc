@@ -84,6 +84,14 @@ function authkey() {
   echo "" >> ~/.ssh/authorized_keys
 }
 
+function authkeyremote() {
+  echo "Adding Public Key $1 to the authorized_keys for $2:$3"
+  local pubkey="$1"
+  local myhost="$2"
+  local port="$3"
+  ssh-copy-id -f -i $pubkey -p $port $myhost
+}
+
 # Vim aliases
 alias xvim='vim -X' # Disable X11 Connection
 alias svim='sudo -E vim'
@@ -103,43 +111,18 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias sizes='sudo du -sh *'
 
-# NVM
-if [ -s "$HOME/.nvm/nvm.sh" ]; then
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
-  alias nvm='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && nvm'
-  alias node='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && node'
-  alias npm='unalias nvm node npm && . "$NVM_DIR"/nvm.sh && npm'
-fi
-# Defer initialization of nvm until nvm, node or a node-dependent command is
-# run. Ensure this block is only run once if .bashrc gets sourced multiple times
-# by checking whether __init_nvm is a function.
-if [ -s "$HOME/.nvm/nvm.sh" ] && [ ! "$(type -m __init_nvm)" = function ]; then
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
-  declare -a __node_commands=('nvm' 'node' 'npm' 'yarn' 'gulp' 'grunt' 'webpack')
-  function __init_nvm() {
-    for i in "${__node_commands[@]}"; do unalias $i; done
-    . "$NVM_DIR"/nvm.sh
-    unset __node_commands
-    unset -f __init_nvm
-  }
-  for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
-fi
-
-
-# Fastlane
-if [ -d "/.fastlane/bin" ]
-then
-  export PATH="$PATH:$HOME/.fastlane/bin"
-fi
-
 # Go
 if [ -d "/usr/local/go" ]
 then
   export GOPATH="/usr/local/gopath"
   export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin"
 fi
+if [ -d "$HOME/go" ]
+then
+  export GOPATH="$HOME/go"
+  export PATH="$PATH:$HOME/go/bin:$GOPATH/bin"
+fi
+
 
 # Android
 if [ -d "$HOME/Library/Android" ]
