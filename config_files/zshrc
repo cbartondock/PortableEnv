@@ -5,6 +5,12 @@ fi
 # Correct non bashlike wildcard behavior
 set nonomatch
 
+# brew
+if [ -d "/opt/homebrew/bin/" ]
+then
+  export PATH=$PATH:/opt/homebrew/bin
+fi
+
 # oh-my-zsh
 if [ -d "~/.oh-my-zsh" ]
 then
@@ -139,6 +145,11 @@ if [ -d "/usr/local/go" ]
 then
   export GOPATH="/usr/local/gopath"
   export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin"
+fi
+if [ -d "$HOME/go/" ]
+then
+  export GOPATH="$HOME/go"
+  export PATH="$PATH:$GOPATH/bin"
 fi
 
 # Android
